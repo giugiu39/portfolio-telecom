@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IoT Environmental Monitor — ESP32 sensor network with MQTT and Node-RED dashboard. Bachelor's thesis by Gianluca Perrotta." />
+  <title>IoT Environmental Monitor | Gianluca Perrotta</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" style="text-decoration:none;">GP<span class="nav-logo-dot">.</span></a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#education">Education</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="project-hero">
+  <div class="container">
+    <p class="project-meta">IoT · MQTT · EMBEDDED SYSTEMS · NETWORKING · BACHELOR'S THESIS</p>
+    <h1>IoT Environmental Monitor<br />with MQTT &amp; Node-RED Dashboard</h1>
+    <p class="project-desc">
+      An ESP32-based sensor network that acquires environmental data — temperature, humidity,
+      GPS coordinates and wind speed — and transmits it in real time to a Node-RED dashboard
+      via MQTT. Network performance over 4G/5G NSA was analysed with Wireshark.
+    </p>
+    <a href="index.html#projects" class="back-link">← Back to projects</a>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">University Context</h2>
+    <p>
+      This work was developed as the <strong>Bachelor's thesis</strong> for the degree in
+      Computer Engineering at <strong>Università della Calabria (UNICAL)</strong>,
+      A.Y. 2024/2025. The thesis is titled
+      <em>"Progettazione e implementazione di un sistema di monitoraggio e controllo remoto basato su tecnologie IoT e radiomobili"</em>
+      (Design and Implementation of a Remote Monitoring and Control System Based on IoT and Mobile Radio Technologies).
+    </p>
+    <p style="margin-top:12px;">
+      The project explores a complete IoT pipeline: from hardware sensor reading on a
+      microcontroller, through a publish-subscribe messaging layer, up to a visual
+      flow-based controller with live dashboard — all tested on real cellular networks.
+    </p>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Objectives</h2>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">HARDWARE</div>
+        <h4>Sensor Integration</h4>
+        <p>Build a multi-sensor circuit on ESP32 that reads temperature/humidity (DHT22), geographic coordinates (NEO-6M GPS), and wind speed (WH-SP-WS01 anemometer) every 5 seconds.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">COMMUNICATION</div>
+        <h4>MQTT over Wi-Fi</h4>
+        <p>Transmit all sensor readings to an MQTT broker (Mosquitto locally or HiveMQ Cloud over TLS) using a structured topic hierarchy under <code style="color:var(--accent)">esp32/sensori/</code>.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">AUTOMATION</div>
+        <h4>Node-RED Controller</h4>
+        <p>Process incoming MQTT data with a Node-RED flow (Docker-deployed) to build a live dashboard, event-driven alerts via Telegram bot, and extensible automation logic.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">NETWORK ANALYSIS</div>
+        <h4>4G/5G NSA Benchmarking</h4>
+        <p>Connect the ESP32 via mobile hotspot and capture MQTT traffic with Wireshark across four network configurations (4G/5G × 5/20 MHz) to measure RTT latency and throughput.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGIES -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Technologies Used</h2>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin-bottom:10px;">HARDWARE</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">ESP32 DevKit V1</span>
+      <span class="badge highlight">DHT22</span>
+      <span class="badge highlight">NEO-6M GPS</span>
+      <span class="badge highlight">WH-SP-WS01 Anemometer</span>
+      <span class="badge highlight">Breadboard circuit</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">FIRMWARE</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">Arduino IDE / C++</span>
+      <span class="badge highlight">PubSubClient (MQTT)</span>
+      <span class="badge highlight">TinyGPSPlus</span>
+      <span class="badge highlight">DHT library</span>
+      <span class="badge highlight">WiFiClientSecure (TLS)</span>
+      <span class="badge highlight">ISR pulse counting</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">BACKEND &amp; DASHBOARD</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">MQTT protocol</span>
+      <span class="badge highlight">Mosquitto broker</span>
+      <span class="badge highlight">HiveMQ Cloud (TLS/8883)</span>
+      <span class="badge highlight">Node-RED</span>
+      <span class="badge highlight">Docker</span>
+      <span class="badge highlight">Telegram Bot API</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">NETWORK ANALYSIS</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">Wireshark / TShark</span>
+      <span class="badge highlight">4G LTE / 5G NSA</span>
+      <span class="badge highlight">TCP/IP analysis</span>
+      <span class="badge highlight">RTT / Throughput metrics</span>
+      <span class="badge highlight">MQTT Explorer</span>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM ARCHITECTURE -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">System Architecture</h2>
+    <p style="color:var(--text-muted);margin-bottom:4px;">
+      The system follows a classic IoT three-layer pipeline: a physical sensing layer
+      (ESP32 + sensors), a messaging layer (MQTT broker), and a processing/visualisation
+      layer (Node-RED on Docker). The broker and Node-RED can be co-located on a PC in the
+      local network, or the broker can be moved to HiveMQ Cloud for remote access over TLS.
+    </p>
+
+    <img src="assets/iot-monitor/system-design.png" alt="System architecture diagram" class="project-img" />
+    <p class="img-caption">System design: ESP32 → MQTT broker (Mosquitto / HiveMQ) → Node-RED (Docker)</p>
+
+    <div class="arch-flow" style="margin-top:28px;">
+      <div class="arch-node edge-node">
+        <strong>ESP32 DevKit</strong><br />
+        <span style="font-size:0.75rem;">DHT22 · NEO-6M<br />Anemometer · Wi-Fi</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node cloud-node">
+        <strong>MQTT Broker</strong><br />
+        <span style="font-size:0.75rem;">Mosquitto (local)<br />HiveMQ (TLS)</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node cloud-node">
+        <strong>Node-RED</strong><br />
+        <span style="font-size:0.75rem;">Docker · flows<br />pub / sub</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node app-node">
+        <strong>Dashboard</strong><br />
+        <span style="font-size:0.75rem;">Live gauges<br />Telegram alerts</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HARDWARE -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Hardware — Distribution Module</h2>
+    <p style="color:var(--text-muted);margin-bottom:4px;">
+      The ESP32 is the central unit: it reads all sensors, encodes the data and publishes
+      it to the MQTT broker every <strong>5 seconds</strong>. The anemometer uses hardware
+      interrupts (ISR) to count reed-switch pulses; wind speed is derived from pulse
+      frequency using the sensor's datasheet formula.
+    </p>
+
+    <img src="assets/iot-monitor/circuit-diagram.png" alt="Circuit diagram on breadboard" class="project-img" style="max-width:480px;display:block;margin:20px auto 0;" />
+    <p class="img-caption">Complete circuit: ESP32 + NEO-6M GPS + DHT22 + WH-SP-WS01 anemometer on breadboard</p>
+
+    <div class="img-grid" style="margin-top:28px;">
+      <figure>
+        <img src="assets/iot-monitor/Modulo ESP32.png" alt="ESP32 module" />
+        <figcaption>ESP32 DevKit V1 — Wi-Fi + Bluetooth microcontroller</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/iot-monitor/DHT22.png" alt="DHT22 sensor" />
+        <figcaption>DHT22 — digital temperature &amp; humidity sensor (pin 4)</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/iot-monitor/GPS NEO 6M.png" alt="NEO-6M GPS module" />
+        <figcaption>NEO-6M GPS — lat/lon/altitude/UTC via UART2 (RX=17, TX=16)</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/iot-monitor/WH-SP-WS01.png" alt="WH-SP-WS01 anemometer" />
+        <figcaption>WH-SP-WS01 — wind speed via reed-switch pulse counting (pin 27)</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- MQTT TOPICS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">MQTT Topic Structure</h2>
+    <p style="color:var(--text-muted);margin-bottom:4px;">
+      Each sensor value is published to a dedicated leaf topic at 5-second intervals.
+      The hierarchical structure makes selective subscription straightforward
+      (e.g. <code style="color:var(--accent)">esp32/sensori/#</code> subscribes to all sensors at once).
+    </p>
+    <div class="topic-list">
+      <span class="t-sensor">esp32/sensori/dht22/</span><span class="t-value">temperature_C</span> &nbsp;·&nbsp; <span class="t-value">humidity</span> &nbsp;·&nbsp; <span class="t-value">heat_index_C</span><br/>
+      <span class="t-sensor">esp32/sensori/NEO-6M/</span><span class="t-value">latitude</span> &nbsp;·&nbsp; <span class="t-value">longitude</span> &nbsp;·&nbsp; <span class="t-value">altitude_m</span> &nbsp;·&nbsp; <span class="t-value">satellites</span> &nbsp;·&nbsp; <span class="t-value">hdop</span><br/>
+      <span class="t-sensor">esp32/sensori/WH-SP-WS01/</span><span class="t-value">wind_ms</span> &nbsp;·&nbsp; <span class="t-value">wind_kmh</span> &nbsp;·&nbsp; <span class="t-value">pulses</span><br/>
+      <span class="t-sensor">esp32/</span><span class="t-value">status</span>
+    </div>
+
+    <img src="assets/iot-monitor/mqtt-explorer.png" alt="MQTT Explorer showing all topics and live values" class="project-img" />
+    <p class="img-caption">MQTT Explorer — live topic tree with all sensor readings (Mosquitto broker at 172.20.10.3)</p>
+  </div>
+</section>
+
+<!-- NODE-RED -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Node-RED Flow &amp; Dashboard</h2>
+    <p style="color:var(--text-muted);margin-bottom:4px;">
+      Node-RED subscribes to all sensor topics and routes each value through a dedicated
+      flow: JSON parsing → gauge/chart node → dashboard UI. Each sensor category has
+      its own dashboard page. Alarm thresholds trigger a Telegram bot notification.
+      Node-RED runs in a Docker container, making it portable across any host on the network.
+    </p>
+
+    <img src="assets/iot-monitor/flow_nodered.png" alt="Node-RED flow" class="project-img" />
+    <p class="img-caption">Node-RED visual flow — MQTT subscribe nodes → processing → dashboard gauges for DHT22, GPS and anemometer</p>
+
+    <div class="img-grid" style="margin-top:28px;">
+      <figure>
+        <img src="assets/iot-monitor/dashboard-dht22.png" alt="Node-RED DHT22 dashboard" />
+        <figcaption>Dashboard page 1 — DHT22: temperature (°C/°F), humidity, heat index</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/iot-monitor/dashboard-gps.png" alt="Node-RED GPS dashboard" />
+        <figcaption>Dashboard page 2 — NEO-6M GPS: latitude, longitude, altitude, satellites, HDOP</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/iot-monitor/dashboard-anemometer.png" alt="Node-RED anemometer dashboard" />
+        <figcaption>Dashboard page 3 — WH-SP-WS01: wind speed (km/h · m/s) and pulse count</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/iot-monitor/serial-monitor.png" alt="Arduino IDE serial monitor" />
+        <figcaption>Arduino IDE serial monitor — live sensor output before MQTT publish</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Development Process</h2>
+    <p style="color:var(--text-muted);margin-bottom:20px;">
+      The project was built incrementally through structured practice steps, each adding
+      a new layer of complexity before full integration.
+    </p>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">STEP 1–2</div>
+        <h4>ESP32 Setup &amp; Wi-Fi</h4>
+        <p>Installed ESP32 board in Arduino IDE, uploaded first sketch, and implemented Wi-Fi connectivity using the <code>WiFi.h</code> library.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">STEP 3–5</div>
+        <h4>Individual Sensor Drivers</h4>
+        <p>Developed and validated each sensor driver: DHT22 via digital pin, NEO-6M GPS via UART2 with TinyGPSPlus, anemometer via hardware interrupt pulse counting.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">STEP 6–7</div>
+        <h4>Sensor Fusion &amp; MQTT</h4>
+        <p>Combined all sensors in a single sketch with a 5-second publish loop. Connected to Mosquitto (local, port 1883), then migrated to HiveMQ Cloud with TLS (port 8883) and NTP sync.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">STEP 8</div>
+        <h4>Node-RED Integration</h4>
+        <p>Built the full Node-RED flow in Docker: MQTT subscribe → JSON parse → dashboard gauges for each sensor page + Telegram alarm bot for threshold events.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">STEP 9</div>
+        <h4>Network Testing</h4>
+        <p>Tethered the ESP32 via smartphone hotspot to 4G/5G NSA. Captured 600-second Wireshark traces on port 8883 across four configurations. Analysed RTT and throughput with TShark filters.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">THESIS</div>
+        <h4>Protocol Study</h4>
+        <p>Studied and documented MQTT internals: publish-subscribe architecture, topic hierarchy, QoS levels (0/1/2), retain messages, Last Will &amp; Testament, Keep Alive, and the TCP/IP foundation layer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NETWORK RESULTS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Network Performance Results</h2>
+    <p style="color:var(--text-muted);margin-bottom:20px;">
+      MQTT traffic was captured with Wireshark over 600-second sessions on port 8883,
+      filtering only TCP traffic between the ESP32 and the HiveMQ Cloud broker.
+      The ESP32 connected via mobile hotspot to test four 4G/5G NSA configurations.
+      RTT was extracted from <code style="color:var(--accent)">tcp.analysis.ack_rtt</code>; throughput from total bytes ÷ duration.
+    </p>
+
+    <h3 style="font-size:1rem;margin-bottom:12px;">Summary Table</h3>
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th>Network</th>
+          <th>Bandwidth</th>
+          <th>Avg RTT (ms)</th>
+          <th>Avg Throughput (kbps)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td>4G LTE</td>
+          <td>20 MHz</td>
+          <td>58.7</td>
+          <td>~30.0</td>
+        </tr>
+        <tr>
+          <td>4G LTE</td>
+          <td>5 MHz</td>
+          <td>117.5</td>
+          <td>27.6</td>
+        </tr>
+        <tr>
+          <td>5G NSA</td>
+          <td>20 MHz</td>
+          <td>110.5</td>
+          <td>26.4</td>
+        </tr>
+        <tr>
+          <td>5G NSA</td>
+          <td>5 MHz</td>
+          <td>105.6</td>
+          <td>28.0</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:16px;color:var(--text-muted);font-size:0.88rem;">
+      <strong style="color:var(--text);">Key observation:</strong> 4G 20 MHz achieves the best latency (58.7 ms) — nearly half that of the other configurations.
+      5G NSA latency (~105–117 ms) is comparable to 4G 5 MHz because the NSA architecture still relies on a 4G LTE control plane (EPC),
+      limiting the latency advantage. Throughput is uniformly low (~27–30 kbps) across all configs,
+      consistent with the lightweight MQTT IoT payload (few bytes per topic, every 5 s).
+    </p>
+
+    <div class="img-grid" style="margin-top:28px;">
+      <figure>
+        <img src="assets/iot-monitor/wireshark-4g-20mhz.png" alt="Wireshark capture 4G 20 MHz" />
+        <figcaption>Wireshark — 4G 20 MHz capture (port 8883, 600 s)</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/iot-monitor/wireshark-5g-20mhz.png" alt="Wireshark capture 5G 20 MHz" />
+        <figcaption>Wireshark — 5G NSA 20 MHz capture (port 8883, 600 s)</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/iot-monitor/latency-4g-20mhz.png" alt="Latency analysis 4G 20 MHz" />
+        <figcaption>RTT analysis — 4G 20 MHz: avg 58.7 ms (best configuration)</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/iot-monitor/latency-5g-20mhz.png" alt="Latency analysis 5G 20 MHz" />
+        <figcaption>RTT analysis — 5G NSA 20 MHz: avg 110.5 ms</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Skills Developed</h2>
+    <div class="tech-badges">
+      <span class="badge highlight">Embedded C++ (Arduino)</span>
+      <span class="badge highlight">ESP32 / microcontrollers</span>
+      <span class="badge highlight">MQTT protocol</span>
+      <span class="badge highlight">Hardware interrupt (ISR)</span>
+      <span class="badge highlight">UART / serial communication</span>
+      <span class="badge highlight">TLS / WiFiClientSecure</span>
+      <span class="badge highlight">Node-RED flow programming</span>
+      <span class="badge highlight">Docker</span>
+      <span class="badge highlight">IoT system design</span>
+      <span class="badge highlight">Network traffic analysis</span>
+      <span class="badge highlight">Wireshark / TShark</span>
+      <span class="badge highlight">4G/5G NSA networking</span>
+      <span class="badge highlight">TCP/IP protocol stack</span>
+      <span class="badge highlight">Telegram Bot API</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSIONS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Conclusions</h2>
+    <p>
+      The project successfully demonstrates a complete, end-to-end IoT monitoring pipeline:
+      multi-sensor data acquisition on a low-cost microcontroller, reliable real-time
+      transmission via MQTT (both local and cloud broker), and flexible data processing
+      and visualisation with Node-RED.
+    </p>
+    <p style="margin-top:14px;">
+      The network analysis reveals a clear performance hierarchy: <strong>4G 20 MHz offers
+      the lowest latency (58.7 ms)</strong> for MQTT traffic. Surprisingly, 5G NSA configurations
+      do not outperform 4G in latency for this use case — a direct consequence of the
+      Non-Standalone architecture, which anchors the control plane on the existing 4G core.
+      Throughput remains consistently low across all configurations (~27–30 kbps),
+      confirming that IoT-scale MQTT traffic does not stress the radio channel and that
+      latency — not bandwidth — is the critical parameter for this type of application.
+    </p>
+    <p style="margin-top:14px;">
+      Possible extensions include integrating an actuator (relay, servo) controlled via
+      downlink MQTT commands, adding a time-series database (InfluxDB) for historical
+      data logging, and testing 5G Standalone (SA) to measure the true latency potential
+      of a native 5G core.
+    </p>
+    <p style="margin-top:24px;">
+      <a href="index.html#projects" class="back-link">← Back to projects</a>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Gianluca Perrotta — Telecommunications Engineering Student</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

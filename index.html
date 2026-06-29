@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gianluca Perrotta — Telecommunications Engineering student at UNICAL. IoT, edge computing, networks, AI/ML." />
+  <title>Gianluca Perrotta — Telecom Engineering</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo" aria-label="Home">GP<span class="nav-logo-dot">.</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about"     class="nav-link">About</a></li>
+      <li><a href="#education" class="nav-link">Education</a></li>
+      <li><a href="#skills"    class="nav-link">Skills</a></li>
+      <li><a href="#projects"  class="nav-link">Projects</a></li>
+      <li><a href="#contact"   class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-mesh">
+    <div class="mesh-orb mesh-orb-1"></div>
+    <div class="mesh-orb mesh-orb-2"></div>
+    <div class="mesh-orb mesh-orb-3"></div>
+  </div>
+  <div class="container hero-content">
+    <p class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      TELECOMMUNICATIONS · NETWORKS · IoT · EDGE COMPUTING
+    </p>
+    <h1 class="hero-name">
+      Gianluca<br /><span class="hero-name-accent">Perrotta</span>
+    </h1>
+    <p class="hero-role">
+      <span class="role-static">I'm a </span><span class="typewriter" id="typewriter"></span><span class="cursor">|</span>
+    </p>
+    <p class="hero-tagline">
+      Exploring network protocols, IoT architectures and the edge-cloud continuum —
+      from ESP32 firmware to GPU-accelerated Vision-Language Models on AWS.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">
+        View Projects
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      <a href="#about"   class="btn btn-ghost">About Me</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <span class="scroll-line"></span>
+    <span class="scroll-label">scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">WHO I AM</span>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm a <strong>Telecommunications Engineering</strong> student at Università della Calabria,
+          with a background in Computer Engineering. I'm passionate about the intersection of
+          embedded systems, cloud infrastructure, and artificial intelligence.
+        </p>
+        <p>
+          My work spans the full stack of modern IoT architectures — from writing firmware on an
+          ESP32 to deploying Vision-Language Models on AWS GPU instances. In my bachelor's thesis I built a
+          multi-sensor IoT network (ESP32 + DHT22, GPS, anemometer) with MQTT, a Node-RED dashboard,
+          and real network performance analysis over 4G/5G NSA using Wireshark.
+        </p>
+        <p>
+          For my current master's project, as part of a four-person team, I evaluated PaliGemma 2 on FER+
+          for group emotion recognition. Fine-tuning proved counterproductive due to the model's pre-training
+          alignment; the base model with a minimal prompt outperformed all QLoRA checkpoints —
+          accuracy 0.691 (8-class) and 0.695 (4-class distress, macro F1 0.691).
+        </p>
+        <p>
+          I enjoy working where hardware meets software — understanding a system
+          at the protocol level, then building and measuring it in the real world.
+        </p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-card">
+          <span class="stat-number" data-count="2">0</span>
+          <span class="stat-label">University Degrees<small>B.Sc. + M.Sc.</small></span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" data-count="4">0</span>
+          <span class="stat-label">Major Projects<small>Completed / Ongoing</small></span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" data-count="3">0</span>
+          <span class="stat-label">VLMs Benchmarked<small>On FER+ Dataset</small></span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" data-count="4">0</span>
+          <span class="stat-label">Network Configs<small>4G/5G NSA Tested</small></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">ACADEMIC JOURNEY</span>
+      <h2 class="section-title">Education</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-marker active"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">2025 — Present</div>
+          <h3 class="timeline-title">M.Sc. Telecommunications Engineering</h3>
+          <p class="timeline-subtitle">Università della Calabria (UNICAL)</p>
+          <p class="timeline-desc">
+            Edge computing, distributed systems, cloud infrastructure, signal processing, and AI/ML.
+            Joint examination project: Group Emotion Recognition with Vision-Language Models on AWS.
+          </p>
+          <div class="timeline-tags">
+            <span class="t-tag">IoT &amp; Edge Computing</span>
+            <span class="t-tag">Cloud Architectures</span>
+            <span class="t-tag">VLM / AI</span>
+            <span class="t-tag">Signal Processing</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">2022 — 2025</div>
+          <h3 class="timeline-title">B.Sc. Computer Engineering</h3>
+          <p class="timeline-subtitle">Università della Calabria (UNICAL)</p>
+          <p class="timeline-desc">
+            Thesis: "Design and Implementation of a Remote Monitoring and Control System Based on
+            IoT and Mobile Radio Technologies." ESP32 sensor network with MQTT, Node-RED, and 4G/5G network analysis.
+          </p>
+          <div class="timeline-tags">
+            <span class="t-tag">Embedded Systems</span>
+            <span class="t-tag">MQTT / IoT</span>
+            <span class="t-tag">Network Analysis</span>
+            <span class="t-tag">Wireshark</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">2017 — 2022</div>
+          <h3 class="timeline-title">Scientific High School Diploma</h3>
+          <p class="timeline-subtitle">Liceo Scientifico</p>
+          <p class="timeline-desc">Strong foundation in mathematics, physics, and natural sciences.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">TECHNICAL TOOLKIT</span>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 class="skill-card-title">Programming</h3>
+        <div class="skill-tags">
+          <span class="s-tag primary">Python</span>
+          <span class="s-tag primary">C/C++</span>
+          <span class="s-tag primary">JavaScript</span>
+          <span class="s-tag primary">MATLAB</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="skill-card-title">Networking</h3>
+        <div class="skill-tags">
+          <span class="s-tag primary">TCP/IP</span>
+          <span class="s-tag primary">MQTT</span>
+          <span class="s-tag primary">Routing</span>
+          <span class="s-tag primary">Signal Theory</span>
+          <span class="s-tag primary">4G/5G NSA</span>
+          <span class="s-tag primary">Wireshark</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3 class="skill-card-title">IoT &amp; Embedded</h3>
+        <div class="skill-tags">
+          <span class="s-tag primary">ESP32</span>
+          <span class="s-tag primary">Raspberry Pi 4</span>
+          <span class="s-tag primary">Arduino</span>
+          <span class="s-tag primary">OpenCV</span>
+          <span class="s-tag primary">UART / ISR</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        </div>
+        <h3 class="skill-card-title">Cloud &amp; AWS</h3>
+        <div class="skill-tags">
+          <span class="s-tag primary">EC2 (GPU)</span>
+          <span class="s-tag primary">Lambda</span>
+          <span class="s-tag primary">DynamoDB</span>
+          <span class="s-tag primary">S3</span>
+          <span class="s-tag primary">API Gateway</span>
+          <span class="s-tag primary">Cognito</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+        </div>
+        <h3 class="skill-card-title">AI / ML</h3>
+        <div class="skill-tags">
+          <span class="s-tag primary">VLMs</span>
+          <span class="s-tag primary">QLoRA / PEFT</span>
+          <span class="s-tag primary">Hugging Face</span>
+          <span class="s-tag primary">FastAPI</span>
+          <span class="s-tag primary">FER+ Dataset</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h3 class="skill-card-title">Tools &amp; Platforms</h3>
+        <div class="skill-tags">
+          <span class="s-tag primary">Git / Linux</span>
+          <span class="s-tag primary">Docker</span>
+          <span class="s-tag primary">Flutter</span>
+          <span class="s-tag primary">Node-RED</span>
+          <span class="s-tag primary">EdgeCloudSim</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">WHAT I'VE BUILT</span>
+      <h2 class="section-title">Projects</h2>
+    </div>
+
+    <div class="project-filters reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="iot">IoT</button>
+      <button class="filter-btn" data-filter="ai">AI / ML</button>
+      <button class="filter-btn" data-filter="networking">Networking</button>
+      <button class="filter-btn" data-filter="dsp">DSP</button>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card reveal" data-categories="iot ai cloud">
+        <div class="project-card-header">
+          <div class="project-status">RESULTS AVAILABLE</div>
+          <div class="project-year">2025/2026</div>
+        </div>
+        <h3 class="project-title">Group Emotion Recognition<br />— Smart Park</h3>
+        <p class="project-desc">
+          IoT-cloud system for real-time group emotion recognition in the Parco Nazionale della Sila.
+          Raspberry Pi nodes with on-edge face detection feed a fine-tuned Moondream2 VLM (82.2% accuracy)
+          over a private Tailscale network. Built with a team of four.
+        </p>
+        <div class="project-tech">
+          <span class="tech-pill">FastAPI</span>
+          <span class="tech-pill">MySQL</span>
+          <span class="tech-pill">Tailscale</span>
+          <span class="tech-pill">Moondream2</span>
+          <span class="tech-pill">Ollama</span>
+          <span class="tech-pill">Flutter</span>
+        </div>
+        <div class="project-links">
+          <a href="project-ger.html" class="project-link-btn">
+            View Details
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="https://github.com/giugiu39/GroupEmotionRecognition---Parco-Nazionale-della-Sila" target="_blank" rel="noopener" class="project-link-gh" aria-label="GitHub repository">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.295 2.747-1.026 2.747-1.026.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.742 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-categories="iot networking hardware">
+        <div class="project-card-header">
+          <div class="project-status">BACHELOR'S THESIS</div>
+          <div class="project-year">2024/2025</div>
+        </div>
+        <h3 class="project-title">IoT Environmental Monitor<br />with MQTT &amp; Node-RED</h3>
+        <p class="project-desc">
+          ESP32-based sensor network acquiring temperature, humidity, GPS and wind speed via MQTT.
+          Network performance analysed over 4G/5G NSA with Wireshark — 4G 20 MHz best latency: 58.7 ms.
+        </p>
+        <div class="project-tech">
+          <span class="tech-pill">ESP32</span>
+          <span class="tech-pill">MQTT</span>
+          <span class="tech-pill">Node-RED</span>
+          <span class="tech-pill">Wireshark</span>
+          <span class="tech-pill">Docker</span>
+        </div>
+        <div class="project-links">
+          <a href="project-iot-monitor.html" class="project-link-btn">
+            View Details
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-categories="dsp">
+        <div class="project-card-header">
+          <div class="project-status">ACADEMIC</div>
+          <div class="project-year">—</div>
+        </div>
+        <h3 class="project-title">Signal Analyzer</h3>
+        <p class="project-desc">
+          FFT-based signal processing tool for audio analysis and filtering.
+          Spectral analysis, bandpass filtering, and frequency domain visualization.
+        </p>
+        <div class="project-tech">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">MATLAB</span>
+          <span class="tech-pill">DSP</span>
+          <span class="tech-pill">FFT</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" data-categories="networking">
+        <div class="project-card-header">
+          <div class="project-status">ACADEMIC</div>
+          <div class="project-year">—</div>
+        </div>
+        <h3 class="project-title">Packet Sniffer</h3>
+        <p class="project-desc">
+          CLI tool to analyze TCP/IP packets at byte level using raw sockets.
+          Header parsing, protocol dissection, and traffic statistics.
+        </p>
+        <div class="project-tech">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Raw Sockets</span>
+          <span class="tech-pill">TCP/IP</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">GET IN TOUCH</span>
+      <h2 class="section-title">Contact</h2>
+    </div>
+    <div class="contact-grid">
+
+      <div class="contact-text reveal">
+        <p class="contact-intro">
+          Let's connect and talk about telecom, networking, IoT, or engineering projects.
+          Whether you're a recruiter, professor, or fellow enthusiast — I'm happy to chat.
+        </p>
+        <div class="contact-items">
+          <a href="mailto:prrglc03m04c588j@studenti.unical.it" class="contact-item">
+            <div class="contact-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">UNIVERSITY EMAIL</div>
+              <div class="contact-item-value">prrglc03m04c588j@studenti.unical.it</div>
+            </div>
+          </a>
+          <a href="mailto:gianluca.perrotta.03@gmail.com" class="contact-item">
+            <div class="contact-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">PERSONAL EMAIL</div>
+              <div class="contact-item-value">gianluca.perrotta.03@gmail.com</div>
+            </div>
+          </a>
+          <a href="tel:+393477470034" class="contact-item">
+            <div class="contact-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l1.35-1.35a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">PHONE</div>
+              <div class="contact-item-value">+39 347 747 0034</div>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/gianluca-perrotta-1917163a2/" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">LINKEDIN</div>
+              <div class="contact-item-value">gianluca-perrotta-1917163a2</div>
+            </div>
+          </a>
+          <a href="https://github.com/giugiu39" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.295 2.747-1.026 2.747-1.026.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.742 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            </div>
+            <div>
+              <div class="contact-item-label">GITHUB</div>
+              <div class="contact-item-value">giugiu39</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-card reveal">
+        <div class="contact-card-inner">
+          <div class="contact-availability">
+            <div class="avail-dot"></div>
+            <span>Available for internships &amp; collaborations</span>
+          </div>
+          <p class="contact-card-desc">
+            Currently pursuing M.Sc. in Telecommunications Engineering at UNICAL.
+            Open to research collaborations, internship opportunities, and interesting engineering problems.
+          </p>
+          <div class="contact-card-tags">
+            <span class="c-tag">IoT Projects</span>
+            <span class="c-tag">Research</span>
+            <span class="c-tag">Internships</span>
+            <span class="c-tag">Open Source</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo">GP<span class="nav-logo-dot">.</span></div>
+    <p class="footer-text">© 2026 Gianluca Perrotta — Telecommunications Engineering Student, UNICAL</p>
+    <div class="footer-links">
+      <a href="https://github.com/giugiu39" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.295 2.747-1.026 2.747-1.026.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.742 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/gianluca-perrotta-1917163a2/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

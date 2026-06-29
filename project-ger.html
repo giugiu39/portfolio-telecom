@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Group Emotion Recognition System for Smart Park Monitoring — IoT-cloud project by Gianluca Perrotta, Telecommunications Engineering." />
+  <title>GER — Smart Park | Gianluca Perrotta</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" style="text-decoration:none;">GP<span class="nav-logo-dot">.</span></a>
+    <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#education">Education</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="project-hero">
+  <div class="container">
+    <p class="project-meta">EDGE COMPUTING · IoT · COMPUTER VISION · AWS · 2025/2026</p>
+    <h1>Group Emotion Recognition<br />for Smart Park Monitoring</h1>
+    <p class="project-desc">
+      A collaborative IoT-cloud system that recognises the dominant emotional state of visitor groups
+      in the Parco Nazionale della Sila. Raspberry Pi 5 edge nodes with on-device face detection feed a
+      fine-tuned Moondream2 Vision-Language Model running on AWS, queried through a Flutter app over a
+      private Tailscale network. Built with a team of four as a joint IoT and Cloud/Edge Computing examination.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:28px;">
+      <a href="index.html#projects" class="back-link" style="margin-top:0;">← Back to projects</a>
+      <a href="https://github.com/giugiu39/GroupEmotionRecognition---Parco-Nazionale-della-Sila" target="_blank" rel="noopener" class="back-link" style="margin-top:0;">View on GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">University Context</h2>
+    <p>
+      This project was developed as part of the joint examination of
+      <strong>IoT Device Programming</strong> and
+      <strong>Distributed Systems and Cloud/Edge Computing</strong>
+      (A.A. 2025/2026) at the degree programme in Telecommunications Engineering.
+      The team — Gianluca Perrotta, Marco Macrì, Orazio Ruberto, and Asrar Jemal Mohammed — designed and
+      implemented the complete system from requirements analysis through cloud deployment and
+      EdgeCloudSim simulation.
+    </p>
+    <p style="margin-top:12px;">
+      The Parco Nazionale della Sila (Calabria, 73,695 ha) was chosen as the application scenario:
+      a real-world environment where park management lacks objective, real-time tools to assess
+      how visitors emotionally perceive the natural environment.
+    </p>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Team</h2>
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>ID</th>
+          <th>Contribution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td><strong>Gianluca Perrotta</strong></td>
+          <td>277091</td>
+          <td>FastAPI backend · AWS infrastructure · PaliGemma 2 VLM · Tailscale configuration · MQTT integration</td>
+        </tr>
+        <tr>
+          <td>Marco Macrì</td>
+          <td>276608</td>
+          <td>Moondream2 VLM · Flutter app · VLM queue service · MQTT publisher · Tailscale proposal</td>
+        </tr>
+        <tr>
+          <td>Orazio Ruberto</td>
+          <td>276576</td>
+          <td>MiniCPM-V VLM · Silvan AI agent · EdgeCloudSim simulation</td>
+        </tr>
+        <tr>
+          <td>Asrar Jemal Mohammed</td>
+          <td>284598</td>
+          <td>Raspberry Pi 5 edge node · GoPro integration · hardware setup</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Objectives</h2>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">FR1 – FR2</div>
+        <h4>Edge Frame Acquisition</h4>
+        <p>Use on-edge face detection (OpenCV DNN SSD) on a Raspberry Pi 5 + GoPro node to decide when to capture and transmit a frame — every 20 s while the same group stays in view, immediately when a new person enters.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">FR3 – FR4</div>
+        <h4>VLM Emotion Classification</h4>
+        <p>Classify the dominant group emotion (8 classes, FER+) using a fine-tuned Moondream2 VLM served behind a two-queue priority system on the cloud GPU instance.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">FR5</div>
+        <h4>Persistent Cloud Storage</h4>
+        <p>Store inference results (emotion label, node, timestamp) in a MySQL database co-located with the backend on the EC2 instance.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">FR6 – FR7</div>
+        <h4>Mobile Dashboard &amp; NL Queries</h4>
+        <p>Let park workers query emotion percentages per node and time range, analyse on-demand photos, and ask natural-language questions answered by an AI agent — all from a Flutter app secured via Cognito.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">NFR5</div>
+        <h4>VLM Benchmarking</h4>
+        <p>Fine-tuned PaliGemma 2, MiniCPM-V, and Moondream2 with QLoRA on FER+; Moondream2 selected for deployment.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">NFR2</div>
+        <h4>Offloading Simulation</h4>
+        <p>Validate scalability of the offloading pipeline using EdgeCloudSim with 1–10 concurrent nodes and three routing policies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGIES -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Technologies Used</h2>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin-bottom:10px;">EDGE</h3>
+    <div class="tech-badges">
+      <span class="badge">Raspberry Pi 5</span>
+      <span class="badge">GoPro Camera</span>
+      <span class="badge">OpenCV (DNN SSD Face Detection)</span>
+      <span class="badge">Python</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">AI / MACHINE LEARNING</h3>
+    <div class="tech-badges">
+      <span class="badge">Moondream2 (2B, fine-tuned)</span>
+      <span class="badge">PaliGemma 2 (3B, baseline)</span>
+      <span class="badge">MiniCPM-V 4.6</span>
+      <span class="badge">QLoRA / PEFT</span>
+      <span class="badge">FER+ Dataset</span>
+      <span class="badge">Ollama (llama3.2)</span>
+      <span class="badge">Hugging Face Transformers</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">BACKEND &amp; CLOUD</h3>
+    <div class="tech-badges">
+      <span class="badge">AWS EC2 g4dn.xlarge (Tesla T4)</span>
+      <span class="badge">FastAPI</span>
+      <span class="badge">SQLAlchemy</span>
+      <span class="badge">MySQL</span>
+      <span class="badge">Tailscale VPN</span>
+      <span class="badge">AWS Cognito (User Pool + M2M)</span>
+      <span class="badge">AWS S3</span>
+      <span class="badge">paho-mqtt</span>
+      <span class="badge">Eclipse Ditto (MQTT Digital Twin)</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">MOBILE &amp; SIMULATION</h3>
+    <div class="tech-badges">
+      <span class="badge">Flutter (Android)</span>
+      <span class="badge">EdgeCloudSim (Java)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">System Architecture</h2>
+    <p style="color:var(--text-muted);margin-bottom:24px;">
+      Three-tier device–edge–cloud architecture over a private Tailscale network. The Raspberry Pi handles only face
+      detection and frame transmission; all VLM inference, storage, and the AI agent run on a single
+      GPU instance in the cloud. Two separate Cognito authentication flows secure the two client types:
+      JWKS-cached M2M Client Credentials for Raspberry Pi nodes, and Cognito GetUser for Flutter app users.
+    </p>
+
+    <div class="arch-flow">
+      <div class="arch-node edge-node">
+        <strong>Raspberry Pi 5 + GoPro</strong><br />
+        <span style="font-size:0.75rem;">OpenCV DNN SSD<br />face-triggered capture</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node cloud-node">
+        <strong>Tailscale VPN</strong><br />
+        <span style="font-size:0.75rem;">private mesh tunnel<br />replaces API Gateway</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node cloud-node">
+        <strong>FastAPI :8080</strong><br />
+        <span style="font-size:0.75rem;">EC2 g4dn.xlarge<br />Tesla T4 16 GB</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node cloud-node">
+        <strong>Moondream2 VLM</strong><br />
+        <span style="font-size:0.75rem;">two-queue<br />priority inference</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node cloud-node">
+        <strong>MySQL</strong><br />
+        <span style="font-size:0.75rem;">localhost:3306<br />on the EC2 instance</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node cloud-node">
+        <strong>MQTT Publisher</strong><br />
+        <span style="font-size:0.75rem;">Eclipse Ditto format<br />fire-and-forget</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node app-node">
+        <strong>Flutter App</strong><br />
+        <span style="font-size:0.75rem;">Cognito auth<br />over Tailscale</span>
+      </div>
+    </div>
+
+    <p style="margin-top:24px;color:var(--text-muted);font-size:0.9rem;">
+      The same FastAPI service also exposes an on-demand path for the mobile app: a photo sent to
+      <code>/app/analyzephoto</code> is pushed to the high-priority lane of the VLM queue ahead of the
+      steady stream of Raspberry frames, while a natural-language question sent to
+      <code>/app/askagent</code> is turned into a SQL query by an AI agent (llama3.2 via Ollama) that
+      reads MySQL directly and replies in natural language.
+    </p>
+    <p style="margin-top:12px;color:var(--text-muted);font-size:0.9rem;">
+      MySQL schema — <code>detections</code> table: <code>id</code>, <code>node_name</code>,
+      <code>num_persone</code>, <code>emotion</code> (nullable), <code>timestamp</code> (BIGINT).
+      AWS S3 stores scripts, training datasets, and model artefacts. No API Gateway and no DynamoDB
+      keep the full deployment within the $150 budget.
+    </p>
+  </div>
+</section>
+
+<!-- BACKEND API -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Backend API</h2>
+    <p style="color:var(--text-muted);margin-bottom:16px;">
+      FastAPI backend on the EC2 instance (port 8080), reachable only through the private Tailscale network.
+    </p>
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Endpoint</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td>POST</td>
+          <td>/emonodes/sendmessage</td>
+          <td>Raspberry Pi sends a frame; two-phase DB write records the detection, then Moondream2 classifies the dominant emotion via the normal-priority VLM queue and updates MySQL.</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/app/data/getbetweendates</td>
+          <td>Returns per-node emotion percentage aggregation for a given time range.</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/app/analyzephoto</td>
+          <td>App sends a base64-encoded photo (JPG/PNG/JPEG); routed to the VLM's high-priority queue (weight=3) and returns the detected emotion.</td>
+        </tr>
+        <tr>
+          <td>POST</td>
+          <td>/app/askagent</td>
+          <td>Natural-language question is forwarded to the Silvan AI agent, converted into a SQL query, and answered in natural language.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Methodology</h2>
+    <p style="margin-bottom:20px;">
+      The project followed a structured analysis → design → implementation workflow using
+      <strong>ACOSO-METH</strong> notation for IoT domain modelling (SO-centric and IoT
+      Service-centric models). Key design decisions were documented with traceability to
+      functional and non-functional requirements.
+    </p>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">DESIGN</div>
+        <h4>VLM over CNN</h4>
+        <p>Vision-Language Models simultaneously classify the dominant emotion and generate a natural-language description, providing richer output than a CNN label-only approach.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">DESIGN</div>
+        <h4>Cloud Offloading</h4>
+        <p>Raspberry Pi 5 lacks a dedicated GPU; running multi-billion-parameter VLMs locally would violate the latency constraint. All inference is delegated to a single EC2 g4dn.xlarge, reached over a private Tailscale network instead of a public API Gateway.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">DESIGN</div>
+        <h4>PEFT Benchmark &amp; Model Selection</h4>
+        <p>Three VLMs are evaluated on FER+ (with and without QLoRA fine-tuning). PaliGemma 2 overfit during fine-tuning; its base model was kept as a comparison baseline. Moondream2, fine-tuned with QLoRA, reached the best accuracy and was selected for deployment. MiniCPM-V and Moondream2 were QLoRA fine-tuned by the respective team members.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">DESIGN</div>
+        <h4>Single Backend, Two-Queue Priority</h4>
+        <p>A single FastAPI process exposes ingestion, on-demand analysis, historical queries, and the natural-language agent as independent async endpoints. A two-queue priority scheduler keeps interactive app requests from waiting behind the steady stream of Raspberry frames.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATASET -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Dataset — FER+</h2>
+    <p style="margin-bottom:20px;">
+      All three VLMs were benchmarked and fine-tuned on the <strong>FER+</strong> dataset.
+    </p>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">8-CLASS SCHEMA</div>
+        <h4>Full Emotion Set</h4>
+        <p>~78,000 facial images across 8 emotion classes: happiness, neutral, surprise, anger, sadness, disgust, fear, contempt. Original images are 48×48 px grayscale, resized to 224×224 RGB for VLM input.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">4-CLASS SCHEMA</div>
+        <h4>Distress Variant</h4>
+        <p>Five low-frequency negative emotions (anger, sadness, disgust, fear, contempt) merged into a single <em>distress</em> class, eliminating minority-class imbalance. Used for the PaliGemma 2 baseline comparison to show the effect of class consolidation without any model change.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MY CONTRIBUTIONS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">My Personal Contributions</h2>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">FASTAPI BACKEND</div>
+        <h4>FastAPI Backend — Sole Implementation</h4>
+        <p>
+          Co-designed with Marco the four REST endpoints and solely implemented the entire backend on EC2 g4dn.xlarge
+          using FastAPI with full async/await support: <code>POST /emonodes/sendmessage</code> (frame ingestion,
+          two-phase DB write, normal-priority VLM queue), <code>GET /app/data/getbetweendates</code> (per-node
+          emotion percentage aggregation), <code>POST /app/analyzephoto</code> (high-priority VLM queue),
+          <code>POST /app/askagent</code> (natural-language query forwarding to Silvan agent).
+        </p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">VLM INTEGRATION</div>
+        <h4>VLM Queue Service Integration</h4>
+        <p>
+          Integrated Marco's fine-tuned Moondream2 and <code>model_queue_service.py</code> into the FastAPI
+          startup lifecycle. Model loaded onto GPU once at startup;
+          <code>endpoint_one</code> (normal priority) serves Raspberry Pi frame requests,
+          <code>endpoint_two</code> (weight=3) serves app photo analysis requests.
+        </p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">AI AGENT INTEGRATION</div>
+        <h4>Silvan AI Agent Integration</h4>
+        <p>
+          Integrated Orazio's Silvan agent (llama3.2 via Ollama, text-to-SQL, three-stage pipeline) as a direct
+          Python import via <code>sys.path</code>. Offloaded via <code>asyncio.to_thread</code> to keep the
+          event loop free. Warmup call at startup eliminates the ~30 s cold-start penalty on the first query.
+        </p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">MQTT INTEGRATION</div>
+        <h4>MQTT Digital Twin Integration</h4>
+        <p>
+          Integrated Marco's <code>MQTTService.py</code> publisher. Broker configured from <code>.env</code>
+          via <code>publisher.set_info()</code>. After each VLM classification, the detection is forwarded
+          in Eclipse Ditto format inside a <code>try/except</code> block — MQTT failures never affect the
+          200 OK response to the Raspberry Pi.
+        </p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">TAILSCALE VPN</div>
+        <h4>Tailscale VPN Infrastructure</h4>
+        <p>
+          Configured the private Tailscale mesh network (proposed by Marco) connecting Raspberry Pi nodes and
+          the Flutter app to the EC2 backend, replacing AWS API Gateway (~$24/month) to stay within the
+          $150 project budget. The mesh eliminates the need for a public IP on the Raspberry Pi nodes.
+        </p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">AWS INFRASTRUCTURE</div>
+        <h4>AWS Infrastructure &amp; Cognito Auth</h4>
+        <p>
+          Configured and managed EC2 g4dn.xlarge (NVIDIA Tesla T4, 16 GB VRAM, eu-west-1) with MySQL on
+          the same host (zero extra cost), <code>detections</code> table schema, and instance auto-shutdown
+          policy. Provisioned AWS Cognito User Pool (app users) and M2M Client Credentials (Raspberry Pi
+          nodes) — two separate authentication flows. AWS S3 stores scripts, datasets, and model artefacts.
+        </p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">SYSTEM TESTING</div>
+        <h4>End-to-End System Testing</h4>
+        <p>
+          End-to-end tested all four endpoints with real data on the live EC2 instance using valid Cognito
+          tokens, verifying response correctness against MySQL. Confirmed JPG, PNG, and JPEG formats all
+          working for photo ingestion.
+        </p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">VLM FINE-TUNING &amp; EVALUATION</div>
+        <h4>PaliGemma 2 — Fine-tuning &amp; Evaluation</h4>
+        <p>
+          Fine-tuned PaliGemma 2 (3B) on FER+ using QLoRA (4-bit NF4, LoRA r=4, multiple learning rates)
+          on EC2 g4dn.xlarge. All runs produced rapid, irrecoverable overfitting — PaliGemma 2's SigLIP
+          encoder was already pre-trained on facial data at scale, leaving no meaningful gap for supervised
+          fine-tuning to close. Deployed the base model with a minimal direct prompt: 69.1% accuracy,
+          0.436 Macro F1 (8-class); 69.5% accuracy, 0.691 Macro F1 (4-class distress); 0.00% invalid predictions.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="section-title" style="margin-top:48px;">Team Collaboration</h2>
+    <div class="activity-grid">
+      <div class="activity-card" style="border-color:#6c63ff;">
+        <div class="activity-tag" style="color:#b8b4ff;">MOONDREAM2 — Marco Macrì</div>
+        <h4>Moondream2 Fine-tuning &amp; Evaluation</h4>
+        <p>QLoRA fine-tuning of Moondream2 (2B) on FER+ (1 epoch, 1/3 of data). Reached 82.2% accuracy, 0.632 Macro F1, 0.00% invalid predictions — the best result among the three VLMs — and was selected for production deployment. Also built the Flutter app, the VLM queue service, the MQTT publisher, and proposed the Tailscale VPN approach.</p>
+      </div>
+      <div class="activity-card" style="border-color:#6c63ff;">
+        <div class="activity-tag" style="color:#b8b4ff;">MINICPM-V 4.6 — Orazio Ruberto</div>
+        <h4>MiniCPM-V Fine-tuning, Silvan Agent &amp; Simulation</h4>
+        <p>QLoRA fine-tuning of MiniCPM-V 4.6 on FER+ (1 epoch). Reached 74.8% accuracy, 0.567 Macro F1, 0.00% invalid predictions on the 8-class benchmark. Also built the Silvan AI agent (llama3.2 via Ollama, text-to-SQL, three-stage pipeline) and ran the EdgeCloudSim offloading simulation.</p>
+      </div>
+      <div class="activity-card" style="border-color:#6c63ff;">
+        <div class="activity-tag" style="color:#b8b4ff;">EDGE — Asrar Jemal Mohammed</div>
+        <h4>Edge Integration — Raspberry Pi 5</h4>
+        <p>Implemented the edge pipeline on a Raspberry Pi 5 with a GoPro camera: on-device face detection (OpenCV DNN SSD, ~10 MB, CPU-only) decides when to transmit a frame — every 20 s heartbeat while the same group stays in view, immediately when a new person enters — forwarding it to the cloud over Tailscale with a Cognito M2M Bearer token.</p>
+      </div>
+      <div class="activity-card" style="border-color:#6c63ff;">
+        <div class="activity-tag" style="color:#b8b4ff;">SIMULATION — Team</div>
+        <h4>EdgeCloudSim Offloading Simulation</h4>
+        <p>Configured EdgeCloudSim with ALWAYS_CLOUD, RANDOM, and PREDICTIVE offloading policies for 1–10 concurrent nodes over a 10-hour simulation. Metrics: average service time, task failure rate, network delay, processing time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Results</h2>
+
+    <h3 style="font-size:1rem;margin-bottom:12px;">VLM Benchmark — FER+ Test Set (8 Classes)</h3>
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Strategy</th>
+          <th>Accuracy</th>
+          <th>Macro F1</th>
+          <th>Invalid %</th>
+          <th>VRAM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PaliGemma 2 3B <em style="font-size:0.8rem;color:var(--text-muted);">(my model)</em></td>
+          <td>Base model + simple prompt</td>
+          <td>0.691</td>
+          <td>0.436</td>
+          <td>0.00%</td>
+          <td>2.3 GB</td>
+        </tr>
+        <tr>
+          <td>MiniCPM-V 4.6</td>
+          <td>QLoRA fine-tuning (1 epoch)</td>
+          <td>0.748</td>
+          <td>0.567</td>
+          <td>0.00%</td>
+          <td>—</td>
+        </tr>
+        <tr class="highlight-row">
+          <td>Moondream2 2B</td>
+          <td>QLoRA fine-tuning (1 epoch, 1/3 data) — selected for deployment</td>
+          <td>0.822</td>
+          <td>0.632</td>
+          <td>0.00%</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1rem;margin:28px 0 12px;">Moondream2 — Per-Class F1 (8-Class)</h3>
+    <table class="result-table">
+      <thead>
+        <tr><th>Emotion</th><th>F1 Score</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row"><td>happiness</td><td>0.9202</td><td>Excellent</td></tr>
+        <tr><td>neutral</td><td>0.8586</td><td>Good</td></tr>
+        <tr><td>surprise</td><td>0.8119</td><td>Good</td></tr>
+        <tr><td>anger</td><td>0.7758</td><td>Decent</td></tr>
+        <tr><td>sadness</td><td>0.6650</td><td>Moderate</td></tr>
+        <tr><td>fear</td><td>0.3946</td><td>Weak — minority class</td></tr>
+        <tr><td>contempt</td><td>0.3478</td><td>Weak — minority class</td></tr>
+        <tr><td>disgust</td><td>0.2857</td><td>Weak — minority class</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1rem;margin:28px 0 12px;">MiniCPM-V 4.6 — Per-Class F1 (8-Class)</h3>
+    <table class="result-table">
+      <thead>
+        <tr><th>Emotion</th><th>F1 Score</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row"><td>happiness</td><td>0.9195</td><td>Excellent</td></tr>
+        <tr><td>neutral</td><td>0.7880</td><td>Good</td></tr>
+        <tr><td>surprise</td><td>0.7792</td><td>Good</td></tr>
+        <tr><td>anger</td><td>0.7017</td><td>Decent</td></tr>
+        <tr><td>sadness</td><td>0.5711</td><td>Moderate</td></tr>
+        <tr><td>fear</td><td>0.3955</td><td>Weak — minority class</td></tr>
+        <tr><td>disgust</td><td>0.2529</td><td>Weak — minority class</td></tr>
+        <tr><td>contempt</td><td>0.1250</td><td>Weak — minority class</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1rem;margin:28px 0 12px;">PaliGemma 2 — 4-Class Distress Variant</h3>
+    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:12px;">
+      Negative emotions (sadness, anger, disgust, fear, contempt) merged into a single <em>distress</em> class,
+      eliminating minority-class imbalance. Macro F1 improves from 0.436 → 0.691 (+0.255) with no model change.
+      This experiment was run on PaliGemma 2 as a comparison baseline; Moondream2 remains the model selected
+      for production deployment.
+    </p>
+    <table class="result-table">
+      <thead>
+        <tr><th>Metric</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Accuracy</td><td>0.695</td></tr>
+        <tr><td>Macro F1</td><td>0.691</td></tr>
+        <tr><td>Invalid predictions</td><td>0.00%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="activity-grid" style="margin-top:16px;">
+      <div class="activity-card">
+        <div class="activity-tag">happiness</div>
+        <h4 style="font-size:1.1rem;">F1: 0.880</h4>
+        <p style="color:var(--text-muted);font-size:0.82rem;">Excellent</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">neutral</div>
+        <h4 style="font-size:1.1rem;">F1: 0.665</h4>
+        <p style="color:var(--text-muted);font-size:0.82rem;">Good</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">distress</div>
+        <h4 style="font-size:1.1rem;">F1: 0.621</h4>
+        <p style="color:var(--text-muted);font-size:0.82rem;">Decent — merged negative class</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">surprise</div>
+        <h4 style="font-size:1.1rem;">F1: 0.598</h4>
+        <p style="color:var(--text-muted);font-size:0.82rem;">Decent</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;margin:32px 0 12px;">EdgeCloudSim — Offloading Policies</h3>
+    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:16px;">
+      10-hour simulation with 1–10 concurrent cameras. Task failure rate: 0%. Service time: ~2.15 s
+      (stable across node counts). Edge utilisation: 7.6% at 1 node → 78.9% at 10 nodes.
+    </p>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">ALWAYS_CLOUD</div>
+        <h4>All tasks → EC2</h4>
+        <p>Lowest failure rate; higher average latency under peak load.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">RANDOM</div>
+        <h4>Random assignment</h4>
+        <p>Baseline comparison; moderate performance across metrics.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">PREDICTIVE</div>
+        <h4>Load-aware routing</h4>
+        <p>Best latency/reliability trade-off under varying node count.</p>
+      </div>
+    </div>
+    <p style="margin-top:16px;color:var(--text-muted);font-size:0.88rem;">
+      Simulation parameters: max delay 5 s · task interarrival 3 s (Poisson) · frame upload ~100 KB · duration 10 h.
+      Metrics: average service time, task failure rate, network delay, processing time.
+    </p>
+
+    <h3 style="font-size:1rem;margin:32px 0 12px;">End-to-End Latency</h3>
+    <table class="result-table">
+      <thead>
+        <tr><th>Component</th><th>Latency</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Frame encoding (Raspberry Pi)</td><td>~0.1 s</td></tr>
+        <tr><td>Tailscale tunnel transit</td><td>0.3 – 0.8 s</td></tr>
+        <tr><td>Moondream2 VLM inference</td><td>1.0 – 2.2 s</td></tr>
+        <tr><td>MySQL write</td><td>~0.05 s</td></tr>
+        <tr class="highlight-row"><td><strong>Total (Raspberry Pi pipeline)</strong></td><td><strong>1.5 – 3.2 s</strong></td></tr>
+        <tr><td>Silvan AI agent (cold start)</td><td>~40 s</td></tr>
+        <tr><td>Silvan AI agent (warm)</td><td>~20 s</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:12px;color:var(--text-muted);font-size:0.88rem;">
+      The ~30 s Ollama cold-start penalty is eliminated by a warmup call issued at FastAPI startup.
+    </p>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Budget</h2>
+    <p style="margin-bottom:16px;">
+      The full system was deployed and operated within a total budget of <strong>$150</strong>.
+      Two cost-cutting decisions were key:
+    </p>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">NO API GATEWAY</div>
+        <h4>Tailscale replaces AWS API Gateway</h4>
+        <p>Using a private Tailscale mesh instead of AWS API Gateway saves ~$24/month. The Raspberry Pi nodes and Flutter app connect directly to the EC2 backend through the encrypted tunnel.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">NO DYNAMODB</div>
+        <h4>MySQL co-located on EC2</h4>
+        <p>Running MySQL on the same EC2 host as the FastAPI backend incurs zero additional cost, replacing a managed DynamoDB instance that would have added to the monthly bill.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Skills Developed</h2>
+    <div class="tech-badges">
+      <span class="badge">PEFT / QLoRA fine-tuning</span>
+      <span class="badge">Vision-Language Models</span>
+      <span class="badge">FastAPI async services</span>
+      <span class="badge">SQLAlchemy / MySQL</span>
+      <span class="badge">Tailscale VPN networking</span>
+      <span class="badge">AWS Cognito (User Pool + M2M)</span>
+      <span class="badge">AWS EC2 GPU deployment</span>
+      <span class="badge">AI agents (Ollama / llama3.2)</span>
+      <span class="badge">Natural-language to SQL</span>
+      <span class="badge">IoT system design</span>
+      <span class="badge">Edge-cloud offloading</span>
+      <span class="badge">Flutter mobile development</span>
+      <span class="badge">ACOSO-METH modelling</span>
+      <span class="badge">EdgeCloudSim simulation</span>
+      <span class="badge">OpenCV face detection</span>
+      <span class="badge">MQTT / Eclipse Ditto</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSIONS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Conclusions</h2>
+    <p>
+      The GER system addresses all defined requirements through a distributed IoT-cloud architecture.
+      Edge-triggered frame capture, VLM-based emotion classification, persistent storage in MySQL,
+      secure mobile access over Tailscale and Cognito, MQTT Digital Twin forwarding in Eclipse Ditto
+      format, and a natural-language query agent are fully integrated in the implemented pipeline.
+    </p>
+    <p style="margin-top:14px;">
+      A key finding from my work on PaliGemma 2 is that QLoRA fine-tuning was counterproductive:
+      the model's SigLIP encoder was already pre-trained on facial data at scale, so every fine-tuning
+      run overfit rather than generalised. The base model with a minimal prompt outperformed all
+      fine-tuned checkpoints, achieving 69.1% accuracy, 0.436 Macro F1 (8-class) and 69.5% accuracy,
+      0.691 Macro F1 (4-class distress), with 0.00% invalid predictions. The distress class
+      consolidation — merging five low-frequency negative emotions into one — raised Macro F1 by
+      +0.255 without any model change.
+    </p>
+    <p style="margin-top:14px;">
+      Moondream2 (Marco Macrì), fine-tuned with QLoRA (1 epoch, 1/3 of data), was selected for
+      production deployment after reaching 82.2% accuracy, 0.632 Macro F1, and 0.00% invalid
+      predictions on the 8-class FER+ benchmark — the best result among the three VLMs. MiniCPM-V 4.6
+      (Orazio Ruberto) achieved 74.8% accuracy and 0.567 Macro F1 with 0.00% invalid predictions.
+      Both models show strength on dominant classes (happiness F1 ~0.92) and weakness on minority
+      classes (contempt, disgust). The comparative benchmark provides an objective, data-driven basis
+      for the model selection.
+    </p>
+    <p style="margin-top:14px;">
+      EdgeCloudSim validated the scalability of the offloading pipeline: 0% task failure across a
+      10-hour simulation with 1–10 concurrent nodes, stable service time of ~2.15 s, and edge
+      utilisation scaling from 7.6% to 78.9% as nodes increase.
+    </p>
+    <p style="margin-top:14px;">
+      Planned future developments include short video-clip analysis for improved temporal consistency,
+      anomaly alert notifications in the mobile app, and domain-specific fine-tuning on images collected
+      directly within the park.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:24px;">
+      <a href="index.html#projects" class="back-link" style="margin-top:0;">← Back to projects</a>
+      <a href="https://github.com/giugiu39/GroupEmotionRecognition---Parco-Nazionale-della-Sila" target="_blank" rel="noopener" class="back-link" style="margin-top:0;">View on GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Gianluca Perrotta — Telecommunications Engineering Student</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
