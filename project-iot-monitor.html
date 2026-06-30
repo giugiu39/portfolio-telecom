@@ -16,22 +16,22 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="#hero" class="nav-logo" aria-label="Home">GP<span class="nav-logo-dot">.</span></a>
+    <a href="index.html" class="nav-logo" aria-label="Home">GP<span class="nav-logo-dot">.</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#about"     class="nav-link">About</a></li>
-      <li><a href="#education" class="nav-link">Education</a></li>
-      <li><a href="#skills"    class="nav-link">Skills</a></li>
-      <li><a href="#projects"  class="nav-link">Projects</a></li>
-      <li><a href="#contact"   class="nav-link">Contact</a></li>
+      <li><a href="index.html"    class="nav-link">Home</a></li>
+      <li><a href="#overview"     class="nav-link">Overview</a></li>
+      <li><a href="#architecture" class="nav-link">Architecture</a></li>
+      <li><a href="#results"      class="nav-link">Results</a></li>
+      <li><a href="#conclusions"  class="nav-link">Conclusions</a></li>
     </ul>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="project-hero">
+<section class="project-hero" id="overview">
   <div class="container">
     <p class="project-meta">IoT · MQTT · EMBEDDED SYSTEMS · NETWORKING · BACHELOR'S THESIS</p>
     <h1>IoT Environmental Monitor<br />with MQTT &amp; Node-RED Dashboard</h1>
@@ -40,7 +40,9 @@
       GPS coordinates and wind speed — and transmits it in real time to a Node-RED dashboard
       via MQTT. Network performance over 4G/5G NSA was analysed with Wireshark.
     </p>
-    <a href="index.html#projects" class="back-link">← Back to projects</a>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:28px;">
+      <a href="index.html#projects" class="btn btn-ghost">← Back to projects</a>
+    </div>
   </div>
 </section>
 
@@ -138,7 +140,7 @@
 </section>
 
 <!-- SYSTEM ARCHITECTURE -->
-<section class="project-section">
+<section class="project-section" id="architecture">
   <div class="container">
     <h2 class="section-title">System Architecture</h2>
     <p style="color:var(--text-muted);margin-bottom:4px;">
@@ -176,7 +178,7 @@
 </section>
 
 <!-- HARDWARE -->
-<section class="project-section">
+<section class="project-section" id="hardware">
   <div class="container">
     <h2 class="section-title">Hardware — Distribution Module</h2>
     <p style="color:var(--text-muted);margin-bottom:4px;">
@@ -310,7 +312,7 @@
 </section>
 
 <!-- NETWORK RESULTS -->
-<section class="project-section">
+<section class="project-section" id="results">
   <div class="container">
     <h2 class="section-title">Network Performance Results</h2>
     <p style="color:var(--text-muted);margin-bottom:20px;">
@@ -410,7 +412,7 @@
 </section>
 
 <!-- CONCLUSIONS -->
-<section class="project-section">
+<section class="project-section" id="conclusions">
   <div class="container">
     <h2 class="section-title">Conclusions</h2>
     <p>
@@ -434,9 +436,9 @@
       data logging, and testing 5G Standalone (SA) to measure the true latency potential
       of a native 5G core.
     </p>
-    <p style="margin-top:24px;">
-      <a href="index.html#projects" class="back-link">← Back to projects</a>
-    </p>
+    <div style="margin-top:24px;">
+      <a href="index.html#projects" class="btn btn-ghost">← Back to projects</a>
+    </div>
   </div>
 </section>
 

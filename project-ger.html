@@ -16,22 +16,22 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="#hero" class="nav-logo" aria-label="Home">GP<span class="nav-logo-dot">.</span></a>
+    <a href="index.html" class="nav-logo" aria-label="Home">GP<span class="nav-logo-dot">.</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#about"     class="nav-link">About</a></li>
-      <li><a href="#education" class="nav-link">Education</a></li>
-      <li><a href="#skills"    class="nav-link">Skills</a></li>
-      <li><a href="#projects"  class="nav-link">Projects</a></li>
-      <li><a href="#contact"   class="nav-link">Contact</a></li>
+      <li><a href="index.html"    class="nav-link">Home</a></li>
+      <li><a href="#overview"     class="nav-link">Overview</a></li>
+      <li><a href="#architecture" class="nav-link">Architecture</a></li>
+      <li><a href="#results"      class="nav-link">Results</a></li>
+      <li><a href="#conclusions"  class="nav-link">Conclusions</a></li>
     </ul>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="project-hero">
+<section class="project-hero" id="overview">
   <div class="container">
     <p class="project-meta">EDGE COMPUTING · IoT · COMPUTER VISION · AWS · 2025/2026</p>
     <h1>Group Emotion Recognition<br />for Smart Park Monitoring</h1>
@@ -41,9 +41,9 @@
       fine-tuned Moondream2 Vision-Language Model running on AWS, queried through a Flutter app over a
       private Tailscale network. Built with a team of four as a joint IoT and Cloud/Edge Computing examination.
     </p>
-    <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:28px;">
-      <a href="index.html#projects" class="back-link" style="margin-top:0;">← Back to projects</a>
-      <a href="https://github.com/giugiu39/GroupEmotionRecognition---Parco-Nazionale-della-Sila" target="_blank" rel="noopener" class="back-link" style="margin-top:0;">View on GitHub ↗</a>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:28px;">
+      <a href="index.html#projects" class="btn btn-ghost">← Back to projects</a>
+      <a href="https://github.com/giugiu39/GroupEmotionRecognition---Parco-Nazionale-della-Sila" target="_blank" rel="noopener" class="btn btn-ghost">View on GitHub ↗</a>
     </div>
   </div>
 </section>
@@ -192,61 +192,92 @@
 </section>
 
 <!-- ARCHITECTURE -->
-<section class="project-section">
+<section class="project-section" id="architecture">
   <div class="container">
     <h2 class="section-title">System Architecture</h2>
-    <p style="color:var(--text-muted);margin-bottom:24px;">
+    <p style="color:var(--text-muted);margin-bottom:32px;">
       Three-tier device–edge–cloud architecture over a private Tailscale network. The Raspberry Pi handles only face
       detection and frame transmission; all VLM inference, storage, and the AI agent run on a single
       GPU instance in the cloud. Two separate Cognito authentication flows secure the two client types:
       JWKS-cached M2M Client Credentials for Raspberry Pi nodes, and Cognito GetUser for Flutter app users.
     </p>
 
-    <div class="arch-flow">
-      <div class="arch-node edge-node">
-        <strong>Raspberry Pi 5 + GoPro</strong><br />
-        <span style="font-size:0.75rem;">OpenCV DNN SSD<br />face-triggered capture</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(460px, 1fr));gap:24px;">
+
+      <div class="activity-card" style="border-color:#6c63ff;">
+        <div class="activity-tag" style="color:#b8b4ff;">FLOW 1 — EDGE FRAME INGESTION (Raspberry Pi → Cloud)</div>
+        <div style="margin-top:14px;font-family:var(--font-mono);font-size:0.76rem;line-height:2;color:var(--text-2);">
+          <div style="color:#b8b4ff;font-weight:600;">Raspberry Pi 5 + GoPro</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ OpenCV DNN SSD face detector</div>
+          <div style="padding-left:2.4rem;color:var(--text-muted);font-size:0.7rem;line-height:1.5;">decides WHEN to transmit — no emotion inference on edge</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Cognito M2M JWT (Client Credentials, JWKS-cached on Pi)</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ HTTPS POST multipart/form-data (foto, node_name, num_persone, timestamp)</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Tailscale VPN private mesh</div>
+          <div style="margin-top:8px;color:var(--lime);font-weight:600;">FastAPI POST /emonodes/sendmessage</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ verify_node_token (JWKS local cache, RS256 — no Cognito round-trip)</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ MySQL INSERT emotion=NULL <span style="color:var(--text-2);">(two-phase write — frame never lost)</span></div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ base64 encode image</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ VLM Queue endpoint_one (normal priority)</div>
+          <div style="padding-left:2.4rem;color:var(--text-muted);">→ Moondream2 GPU inference</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ MySQL UPDATE emotion label</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ MQTT publish (Eclipse Ditto format, fire-and-forget, try/except)</div>
+          <div style="margin-top:8px;color:#b8b4ff;font-weight:600;">→ 200 OK</div>
+        </div>
       </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node cloud-node">
-        <strong>Tailscale VPN</strong><br />
-        <span style="font-size:0.75rem;">private mesh tunnel<br />replaces API Gateway</span>
+
+      <div class="activity-card" style="border-color:var(--amber);">
+        <div class="activity-tag" style="color:var(--amber);">FLOW 2 — EMOTION STATISTICS (Flutter App → Cloud)</div>
+        <div style="margin-top:14px;font-family:var(--font-mono);font-size:0.76rem;line-height:2;color:var(--text-2);">
+          <div style="color:var(--amber);font-weight:600;">Flutter App</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Cognito User Pool JWT (verified online via Cognito GetUser)</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ HTTPS GET /app/data/getbetweendates?start=&amp;end=&amp;nodename=</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Tailscale VPN</div>
+          <div style="margin-top:8px;color:var(--lime);font-weight:600;">FastAPI</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ verify_app_token (Cognito GetUser online)</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ MySQL SELECT detections WHERE node_name AND timestamp range</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ aggregate counts per emotion</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ compute integer percentages (sum ≈ 100)</div>
+          <div style="margin-top:8px;color:var(--amber);font-weight:600;">→ JSON {nodename: {happiness: %, neutral: %, ...}}</div>
+        </div>
       </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node cloud-node">
-        <strong>FastAPI :8080</strong><br />
-        <span style="font-size:0.75rem;">EC2 g4dn.xlarge<br />Tesla T4 16 GB</span>
+
+      <div class="activity-card" style="border-color:var(--amber);">
+        <div class="activity-tag" style="color:var(--amber);">FLOW 3 — ON-DEMAND PHOTO ANALYSIS (Flutter App → Cloud)</div>
+        <div style="margin-top:14px;font-family:var(--font-mono);font-size:0.76rem;line-height:2;color:var(--text-2);">
+          <div style="color:var(--amber);font-weight:600;">Flutter App</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Cognito User Pool JWT</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ HTTPS POST /app/analyzephoto {image_base64: "..."}</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Tailscale VPN</div>
+          <div style="margin-top:8px;color:var(--lime);font-weight:600;">FastAPI</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ verify_app_token</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ VLM Queue endpoint_two <span style="color:var(--text-2);">(high priority, weight=3 — processed before Raspberry frames)</span></div>
+          <div style="padding-left:2.4rem;color:var(--text-muted);">→ Moondream2 GPU inference</div>
+          <div style="margin-top:8px;color:var(--amber);font-weight:600;">→ JSON {emotion: "happiness"}</div>
+        </div>
       </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node cloud-node">
-        <strong>Moondream2 VLM</strong><br />
-        <span style="font-size:0.75rem;">two-queue<br />priority inference</span>
+
+      <div class="activity-card" style="border-color:var(--lime);">
+        <div class="activity-tag" style="color:var(--lime);">FLOW 4 — NATURAL LANGUAGE QUERY (Flutter App → Silvan Agent)</div>
+        <div style="margin-top:14px;font-family:var(--font-mono);font-size:0.76rem;line-height:2;color:var(--text-2);">
+          <div style="color:var(--amber);font-weight:600;">Flutter App</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Cognito User Pool JWT</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ HTTPS POST /app/askagent {message: "What emotions were detected on Tree1?"}</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Tailscale VPN</div>
+          <div style="margin-top:8px;color:var(--lime);font-weight:600;">FastAPI</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ verify_app_token</div>
+          <div style="padding-left:1.2rem;color:var(--text-muted);">→ asyncio.to_thread <span style="color:var(--text-2);">(offload blocking call — keeps event loop free)</span></div>
+          <div style="padding-left:2.4rem;color:var(--lime);font-weight:600;">→ Silvan Agent (llama3.2 via Ollama)</div>
+          <div style="padding-left:3.6rem;color:var(--text-muted);">→ Stage 1: JSON query planning (llama3.2)</div>
+          <div style="padding-left:3.6rem;color:var(--text-muted);">→ Stage 2: parameterized SQL compilation (+ regex fallbacks)</div>
+          <div style="padding-left:3.6rem;color:var(--text-muted);">→ Stage 3: MySQL SELECT execution</div>
+          <div style="padding-left:3.6rem;color:var(--text-muted);">→ Stage 4: NL answer synthesis <span style="color:var(--text-2);">(forced to use only DB rows)</span></div>
+          <div style="margin-top:8px;color:var(--amber);font-weight:600;">→ JSON {response: "Here are the emotions detected on Tree1: ..."}</div>
+        </div>
       </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node cloud-node">
-        <strong>MySQL</strong><br />
-        <span style="font-size:0.75rem;">localhost:3306<br />on the EC2 instance</span>
-      </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node cloud-node">
-        <strong>MQTT Publisher</strong><br />
-        <span style="font-size:0.75rem;">Eclipse Ditto format<br />fire-and-forget</span>
-      </div>
-      <div class="arch-arrow">→</div>
-      <div class="arch-node app-node">
-        <strong>Flutter App</strong><br />
-        <span style="font-size:0.75rem;">Cognito auth<br />over Tailscale</span>
-      </div>
+
     </div>
 
     <p style="margin-top:24px;color:var(--text-muted);font-size:0.9rem;">
-      The same FastAPI service also exposes an on-demand path for the mobile app: a photo sent to
-      <code>/app/analyzephoto</code> is pushed to the high-priority lane of the VLM queue ahead of the
-      steady stream of Raspberry frames, while a natural-language question sent to
-      <code>/app/askagent</code> is turned into a SQL query by an AI agent (llama3.2 via Ollama) that
-      reads MySQL directly and replies in natural language.
-    </p>
-    <p style="margin-top:12px;color:var(--text-muted);font-size:0.9rem;">
       MySQL schema — <code>detections</code> table: <code>id</code>, <code>node_name</code>,
       <code>num_persone</code>, <code>emotion</code> (nullable), <code>timestamp</code> (BIGINT).
       AWS S3 stores scripts, training datasets, and model artefacts. No API Gateway and no DynamoDB
@@ -383,7 +414,7 @@
         <div class="activity-tag">AI AGENT INTEGRATION</div>
         <h4>Silvan AI Agent Integration</h4>
         <p>
-          Integrated Orazio's Silvan agent (llama3.2 via Ollama, text-to-SQL, three-stage pipeline) as a direct
+          Integrated Orazio's Silvan agent (llama3.2 via Ollama, text-to-SQL, four-stage pipeline) as a direct
           Python import via <code>sys.path</code>. Offloaded via <code>asyncio.to_thread</code> to keep the
           event loop free. Warmup call at startup eliminates the ~30 s cold-start penalty on the first query.
         </p>
@@ -449,7 +480,7 @@
       <div class="activity-card" style="border-color:#6c63ff;">
         <div class="activity-tag" style="color:#b8b4ff;">MINICPM-V 4.6 — Orazio Ruberto</div>
         <h4>MiniCPM-V Fine-tuning, Silvan Agent &amp; Simulation</h4>
-        <p>QLoRA fine-tuning of MiniCPM-V 4.6 on FER+ (1 epoch). Reached 74.8% accuracy, 0.567 Macro F1, 0.00% invalid predictions on the 8-class benchmark. Also built the Silvan AI agent (llama3.2 via Ollama, text-to-SQL, three-stage pipeline) and ran the EdgeCloudSim offloading simulation.</p>
+        <p>QLoRA fine-tuning of MiniCPM-V 4.6 on FER+ (1 epoch). Reached 74.8% accuracy, 0.567 Macro F1, 0.00% invalid predictions on the 8-class benchmark. Also built the Silvan AI agent (llama3.2 via Ollama, text-to-SQL, four-stage pipeline) and ran the EdgeCloudSim offloading simulation.</p>
       </div>
       <div class="activity-card" style="border-color:#6c63ff;">
         <div class="activity-tag" style="color:#b8b4ff;">EDGE — Asrar Jemal Mohammed</div>
@@ -466,7 +497,7 @@
 </section>
 
 <!-- RESULTS -->
-<section class="project-section">
+<section class="project-section" id="results">
   <div class="container">
     <h2 class="section-title">Results</h2>
 
@@ -682,7 +713,7 @@
 </section>
 
 <!-- CONCLUSIONS -->
-<section class="project-section">
+<section class="project-section" id="conclusions">
   <div class="container">
     <h2 class="section-title">Conclusions</h2>
     <p>
@@ -719,9 +750,9 @@
       anomaly alert notifications in the mobile app, and domain-specific fine-tuning on images collected
       directly within the park.
     </p>
-    <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:24px;">
-      <a href="index.html#projects" class="back-link" style="margin-top:0;">← Back to projects</a>
-      <a href="https://github.com/giugiu39/GroupEmotionRecognition---Parco-Nazionale-della-Sila" target="_blank" rel="noopener" class="back-link" style="margin-top:0;">View on GitHub ↗</a>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:24px;">
+      <a href="index.html#projects" class="btn btn-ghost">← Back to projects</a>
+      <a href="https://github.com/giugiu39/GroupEmotionRecognition---Parco-Nazionale-della-Sila" target="_blank" rel="noopener" class="btn btn-ghost">View on GitHub ↗</a>
     </div>
   </div>
 </section>

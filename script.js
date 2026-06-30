@@ -47,8 +47,7 @@ if (typeEl) {
     'Telecom Engineering Student',
     'IoT & Embedded Developer',
     'Edge-Cloud Architect',
-    'Network Protocol Enthusiast',
-    'VLM Researcher'
+    'Network Protocol Enthusiast'
   ];
 
   let roleIdx = 0, charIdx = 0, deleting = false;
