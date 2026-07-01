@@ -153,40 +153,40 @@
 
     <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin-bottom:10px;">EDGE</h3>
     <div class="tech-badges">
-      <span class="badge">Raspberry Pi 5</span>
-      <span class="badge">GoPro Camera</span>
-      <span class="badge">OpenCV (DNN SSD Face Detection)</span>
-      <span class="badge">Python</span>
+      <span class="badge highlight">Raspberry Pi 5</span>
+      <span class="badge highlight">GoPro Camera</span>
+      <span class="badge highlight">OpenCV (DNN SSD Face Detection)</span>
+      <span class="badge highlight">Python</span>
     </div>
 
     <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">AI / MACHINE LEARNING</h3>
     <div class="tech-badges">
-      <span class="badge">Moondream2 (2B, fine-tuned)</span>
-      <span class="badge">PaliGemma 2 (3B, baseline)</span>
-      <span class="badge">MiniCPM-V 4.6</span>
-      <span class="badge">QLoRA / PEFT</span>
-      <span class="badge">FER+ Dataset</span>
-      <span class="badge">Ollama (llama3.2)</span>
-      <span class="badge">Hugging Face Transformers</span>
+      <span class="badge highlight">Moondream2 (2B, fine-tuned)</span>
+      <span class="badge highlight">PaliGemma 2 (3B, baseline)</span>
+      <span class="badge highlight">MiniCPM-V 4.6</span>
+      <span class="badge highlight">QLoRA / PEFT</span>
+      <span class="badge highlight">FER+ Dataset</span>
+      <span class="badge highlight">Ollama (llama3.2)</span>
+      <span class="badge highlight">Hugging Face Transformers</span>
     </div>
 
     <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">BACKEND &amp; CLOUD</h3>
     <div class="tech-badges">
-      <span class="badge">AWS EC2 g4dn.xlarge (Tesla T4)</span>
-      <span class="badge">FastAPI</span>
-      <span class="badge">SQLAlchemy</span>
-      <span class="badge">MySQL</span>
-      <span class="badge">Tailscale VPN</span>
-      <span class="badge">AWS Cognito (User Pool + M2M)</span>
-      <span class="badge">AWS S3</span>
-      <span class="badge">paho-mqtt</span>
-      <span class="badge">Eclipse Ditto (MQTT Digital Twin)</span>
+      <span class="badge highlight">AWS EC2 g4dn.xlarge (Tesla T4)</span>
+      <span class="badge highlight">FastAPI</span>
+      <span class="badge highlight">SQLAlchemy</span>
+      <span class="badge highlight">MySQL</span>
+      <span class="badge highlight">Tailscale VPN</span>
+      <span class="badge highlight">AWS Cognito (User Pool + M2M)</span>
+      <span class="badge highlight">AWS S3</span>
+      <span class="badge highlight">paho-mqtt</span>
+      <span class="badge highlight">Eclipse Ditto (MQTT Digital Twin)</span>
     </div>
 
     <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">MOBILE &amp; SIMULATION</h3>
     <div class="tech-badges">
-      <span class="badge">Flutter (Android)</span>
-      <span class="badge">EdgeCloudSim (Java)</span>
+      <span class="badge highlight">Flutter (Android)</span>
+      <span class="badge highlight">EdgeCloudSim (Java)</span>
     </div>
   </div>
 </section>
@@ -202,79 +202,157 @@
       JWKS-cached M2M Client Credentials for Raspberry Pi nodes, and Cognito GetUser for Flutter app users.
     </p>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(460px, 1fr));gap:24px;">
-
-      <div class="activity-card" style="border-color:#6c63ff;">
-        <div class="activity-tag" style="color:#b8b4ff;">FLOW 1 — EDGE FRAME INGESTION (Raspberry Pi → Cloud)</div>
-        <div style="margin-top:14px;font-family:var(--font-mono);font-size:0.76rem;line-height:2;color:var(--text-2);">
-          <div style="color:#b8b4ff;font-weight:600;">Raspberry Pi 5 + GoPro</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ OpenCV DNN SSD face detector</div>
-          <div style="padding-left:2.4rem;color:var(--text-muted);font-size:0.7rem;line-height:1.5;">decides WHEN to transmit — no emotion inference on edge</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Cognito M2M JWT (Client Credentials, JWKS-cached on Pi)</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ HTTPS POST multipart/form-data (foto, node_name, num_persone, timestamp)</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Tailscale VPN private mesh</div>
-          <div style="margin-top:8px;color:var(--lime);font-weight:600;">FastAPI POST /emonodes/sendmessage</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ verify_node_token (JWKS local cache, RS256 — no Cognito round-trip)</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ MySQL INSERT emotion=NULL <span style="color:var(--text-2);">(two-phase write — frame never lost)</span></div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ base64 encode image</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ VLM Queue endpoint_one (normal priority)</div>
-          <div style="padding-left:2.4rem;color:var(--text-muted);">→ Moondream2 GPU inference</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ MySQL UPDATE emotion label</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ MQTT publish (Eclipse Ditto format, fire-and-forget, try/except)</div>
-          <div style="margin-top:8px;color:#b8b4ff;font-weight:600;">→ 200 OK</div>
-        </div>
+    <h3 style="font-size:1rem;margin-bottom:12px;">Flow 1 — Edge Frame Ingestion (Raspberry Pi → Cloud)</h3>
+    <div class="arch-flow">
+      <div class="arch-node">
+        <strong>Raspberry Pi 5</strong><br />
+        <span style="font-size:0.75rem;">+ GoPro</span>
       </div>
-
-      <div class="activity-card" style="border-color:var(--amber);">
-        <div class="activity-tag" style="color:var(--amber);">FLOW 2 — EMOTION STATISTICS (Flutter App → Cloud)</div>
-        <div style="margin-top:14px;font-family:var(--font-mono);font-size:0.76rem;line-height:2;color:var(--text-2);">
-          <div style="color:var(--amber);font-weight:600;">Flutter App</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Cognito User Pool JWT (verified online via Cognito GetUser)</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ HTTPS GET /app/data/getbetweendates?start=&amp;end=&amp;nodename=</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Tailscale VPN</div>
-          <div style="margin-top:8px;color:var(--lime);font-weight:600;">FastAPI</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ verify_app_token (Cognito GetUser online)</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ MySQL SELECT detections WHERE node_name AND timestamp range</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ aggregate counts per emotion</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ compute integer percentages (sum ≈ 100)</div>
-          <div style="margin-top:8px;color:var(--amber);font-weight:600;">→ JSON {nodename: {happiness: %, neutral: %, ...}}</div>
-        </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>OpenCV DNN SSD</strong><br />
+        <span style="font-size:0.75rem;">face detection<br />decides WHEN to transmit<br />no emotion inference on edge</span>
       </div>
-
-      <div class="activity-card" style="border-color:var(--amber);">
-        <div class="activity-tag" style="color:var(--amber);">FLOW 3 — ON-DEMAND PHOTO ANALYSIS (Flutter App → Cloud)</div>
-        <div style="margin-top:14px;font-family:var(--font-mono);font-size:0.76rem;line-height:2;color:var(--text-2);">
-          <div style="color:var(--amber);font-weight:600;">Flutter App</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Cognito User Pool JWT</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ HTTPS POST /app/analyzephoto {image_base64: "..."}</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Tailscale VPN</div>
-          <div style="margin-top:8px;color:var(--lime);font-weight:600;">FastAPI</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ verify_app_token</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ VLM Queue endpoint_two <span style="color:var(--text-2);">(high priority, weight=3 — processed before Raspberry frames)</span></div>
-          <div style="padding-left:2.4rem;color:var(--text-muted);">→ Moondream2 GPU inference</div>
-          <div style="margin-top:8px;color:var(--amber);font-weight:600;">→ JSON {emotion: "happiness"}</div>
-        </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Cognito M2M JWT</strong><br />
+        <span style="font-size:0.75rem;">Client Credentials<br />JWKS-cached on Pi</span>
       </div>
-
-      <div class="activity-card" style="border-color:var(--lime);">
-        <div class="activity-tag" style="color:var(--lime);">FLOW 4 — NATURAL LANGUAGE QUERY (Flutter App → Silvan Agent)</div>
-        <div style="margin-top:14px;font-family:var(--font-mono);font-size:0.76rem;line-height:2;color:var(--text-2);">
-          <div style="color:var(--amber);font-weight:600;">Flutter App</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Cognito User Pool JWT</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ HTTPS POST /app/askagent {message: "What emotions were detected on Tree1?"}</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">↳ Tailscale VPN</div>
-          <div style="margin-top:8px;color:var(--lime);font-weight:600;">FastAPI</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ verify_app_token</div>
-          <div style="padding-left:1.2rem;color:var(--text-muted);">→ asyncio.to_thread <span style="color:var(--text-2);">(offload blocking call — keeps event loop free)</span></div>
-          <div style="padding-left:2.4rem;color:var(--lime);font-weight:600;">→ Silvan Agent (llama3.2 via Ollama)</div>
-          <div style="padding-left:3.6rem;color:var(--text-muted);">→ Stage 1: JSON query planning (llama3.2)</div>
-          <div style="padding-left:3.6rem;color:var(--text-muted);">→ Stage 2: parameterized SQL compilation (+ regex fallbacks)</div>
-          <div style="padding-left:3.6rem;color:var(--text-muted);">→ Stage 3: MySQL SELECT execution</div>
-          <div style="padding-left:3.6rem;color:var(--text-muted);">→ Stage 4: NL answer synthesis <span style="color:var(--text-2);">(forced to use only DB rows)</span></div>
-          <div style="margin-top:8px;color:var(--amber);font-weight:600;">→ JSON {response: "Here are the emotions detected on Tree1: ..."}</div>
-        </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>HTTPS POST</strong><br />
+        <span style="font-size:0.75rem;">multipart/form-data<br />foto, node_name,<br />num_persone, timestamp</span>
       </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Tailscale VPN</strong><br />
+        <span style="font-size:0.75rem;">private mesh</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>FastAPI POST<br />/emonodes/sendmessage</strong><br />
+        <span style="font-size:0.75rem;">verify_node_token (JWKS, RS256)<br />MySQL INSERT emotion=NULL<br />(two-phase write — frame never lost)<br />base64 encode image</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>VLM Queue endpoint_one</strong><br />
+        <span style="font-size:0.75rem;">normal priority<br />Moondream2 GPU inference</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>MySQL UPDATE</strong><br />
+        <span style="font-size:0.75rem;">emotion label</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>MQTT publish</strong><br />
+        <span style="font-size:0.75rem;">Eclipse Ditto format<br />fire-and-forget, try/except</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>200 OK</strong>
+      </div>
+    </div>
 
+    <h3 style="font-size:1rem;margin:32px 0 12px;">Flow 2 — Emotion Statistics (Flutter App → Cloud)</h3>
+    <div class="arch-flow">
+      <div class="arch-node">
+        <strong>Flutter App</strong>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Cognito User Pool JWT</strong><br />
+        <span style="font-size:0.75rem;">verified online<br />via Cognito GetUser</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>HTTPS GET</strong><br />
+        <span style="font-size:0.75rem;">/app/data/getbetweendates<br />?start=&amp;end=&amp;nodename=</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Tailscale VPN</strong>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>FastAPI</strong><br />
+        <span style="font-size:0.75rem;">verify_app_token (Cognito GetUser)<br />MySQL SELECT detections<br />WHERE node_name AND timestamp range<br />aggregate counts per emotion<br />compute integer percentages (sum ≈ 100)</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>JSON response</strong><br />
+        <span style="font-size:0.75rem;">{nodename: {happiness: %,<br />neutral: %, ...}}</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;margin:32px 0 12px;">Flow 3 — On-Demand Photo Analysis (Flutter App → Cloud)</h3>
+    <div class="arch-flow">
+      <div class="arch-node">
+        <strong>Flutter App</strong>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Cognito User Pool JWT</strong>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>HTTPS POST</strong><br />
+        <span style="font-size:0.75rem;">/app/analyzephoto<br />{image_base64: "..."}</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Tailscale VPN</strong>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>FastAPI</strong><br />
+        <span style="font-size:0.75rem;">verify_app_token<br />VLM Queue endpoint_two<br />(high priority, weight=3<br />processed before Raspberry frames)</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Moondream2</strong><br />
+        <span style="font-size:0.75rem;">GPU inference</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>JSON response</strong><br />
+        <span style="font-size:0.75rem;">{emotion: "happiness"}</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;margin:32px 0 12px;">Flow 4 — Natural Language Query (Flutter App → Silvan Agent)</h3>
+    <div class="arch-flow">
+      <div class="arch-node">
+        <strong>Flutter App</strong>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Cognito User Pool JWT</strong>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>HTTPS POST</strong><br />
+        <span style="font-size:0.75rem;">/app/askagent<br />{message: "What emotions<br />were detected on Tree1?"}</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Tailscale VPN</strong>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>FastAPI</strong><br />
+        <span style="font-size:0.75rem;">verify_app_token<br />asyncio.to_thread<br />(offload blocking call — keeps event loop free)</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>Silvan Agent</strong><br />
+        <span style="font-size:0.75rem;">llama3.2 via Ollama<br />Stage 1: JSON query planning<br />Stage 2: SQL compilation (+ regex fallbacks)<br />Stage 3: MySQL SELECT execution<br />Stage 4: NL answer synthesis<br />(forced to use only DB rows)</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <strong>JSON response</strong><br />
+        <span style="font-size:0.75rem;">{response: "Here are the<br />emotions detected on Tree1: ..."}</span>
+      </div>
     </div>
 
     <p style="margin-top:24px;color:var(--text-muted);font-size:0.9rem;">
@@ -302,7 +380,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="highlight-row">
+        <tr>
           <td>POST</td>
           <td>/emonodes/sendmessage</td>
           <td>Raspberry Pi sends a frame; two-phase DB write records the detection, then Moondream2 classifies the dominant emotion via the normal-priority VLM queue and updates MySQL.</td>
@@ -653,7 +731,7 @@
         <tr><td>Tailscale tunnel transit</td><td>0.3 – 0.8 s</td></tr>
         <tr><td>Moondream2 VLM inference</td><td>1.0 – 2.2 s</td></tr>
         <tr><td>MySQL write</td><td>~0.05 s</td></tr>
-        <tr class="highlight-row"><td><strong>Total (Raspberry Pi pipeline)</strong></td><td><strong>1.5 – 3.2 s</strong></td></tr>
+        <tr><td><strong>Total (Raspberry Pi pipeline)</strong></td><td><strong>1.5 – 3.2 s</strong></td></tr>
         <tr><td>Silvan AI agent (cold start)</td><td>~40 s</td></tr>
         <tr><td>Silvan AI agent (warm)</td><td>~20 s</td></tr>
       </tbody>
@@ -692,22 +770,22 @@
   <div class="container">
     <h2 class="section-title">Skills Developed</h2>
     <div class="tech-badges">
-      <span class="badge">PEFT / QLoRA fine-tuning</span>
-      <span class="badge">Vision-Language Models</span>
-      <span class="badge">FastAPI async services</span>
-      <span class="badge">SQLAlchemy / MySQL</span>
-      <span class="badge">Tailscale VPN networking</span>
-      <span class="badge">AWS Cognito (User Pool + M2M)</span>
-      <span class="badge">AWS EC2 GPU deployment</span>
-      <span class="badge">AI agents (Ollama / llama3.2)</span>
-      <span class="badge">Natural-language to SQL</span>
-      <span class="badge">IoT system design</span>
-      <span class="badge">Edge-cloud offloading</span>
-      <span class="badge">Flutter mobile development</span>
-      <span class="badge">ACOSO-METH modelling</span>
-      <span class="badge">EdgeCloudSim simulation</span>
-      <span class="badge">OpenCV face detection</span>
-      <span class="badge">MQTT / Eclipse Ditto</span>
+      <span class="badge highlight">PEFT / QLoRA fine-tuning</span>
+      <span class="badge highlight">Vision-Language Models</span>
+      <span class="badge highlight">FastAPI async services</span>
+      <span class="badge highlight">SQLAlchemy / MySQL</span>
+      <span class="badge highlight">Tailscale VPN networking</span>
+      <span class="badge highlight">AWS Cognito (User Pool + M2M)</span>
+      <span class="badge highlight">AWS EC2 GPU deployment</span>
+      <span class="badge highlight">AI agents (Ollama / llama3.2)</span>
+      <span class="badge highlight">Natural-language to SQL</span>
+      <span class="badge highlight">IoT system design</span>
+      <span class="badge highlight">Edge-cloud offloading</span>
+      <span class="badge highlight">Flutter mobile development</span>
+      <span class="badge highlight">ACOSO-METH modelling</span>
+      <span class="badge highlight">EdgeCloudSim simulation</span>
+      <span class="badge highlight">OpenCV face detection</span>
+      <span class="badge highlight">MQTT / Eclipse Ditto</span>
     </div>
   </div>
 </section>
