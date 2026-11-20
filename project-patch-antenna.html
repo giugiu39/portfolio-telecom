@@ -203,6 +203,22 @@
       Re{Z} = 55.14 Ω and Im{Z} = 6.04 Ω, close to resonance and matching. |S11| reaches about −24 dB,
       and the radiation pattern (3D, rectangular and polar) shows a single broadside lobe along +z.
     </p>
+
+    <h3 style="font-size:1rem;margin:32px 0 4px;">Input Impedance</h3>
+    <div class="img-grid">
+      <figure><img src="assets/patch-antenna/designer-impedance.png" alt="Real and imaginary input impedance vs frequency" loading="lazy" /></figure>
+      <figure><img src="assets/patch-antenna/designer-impedance-zoom.png" alt="Input impedance near 5.8 GHz" loading="lazy" /></figure>
+    </div>
+
+    <h3 style="font-size:1rem;margin:32px 0 4px;">Reflection Coefficient (S11)</h3>
+    <img src="assets/patch-antenna/designer-s11.png" alt="S11 vs frequency in Ansoft Designer" class="project-img" style="max-width:720px;display:block;margin:20px auto 0;" loading="lazy" />
+
+    <h3 style="font-size:1rem;margin:32px 0 4px;">Radiation Pattern</h3>
+    <img src="assets/patch-antenna/designer-3d-pattern.png" alt="3D far-field radiation pattern" class="project-img" style="max-width:720px;display:block;margin:20px auto 0;" loading="lazy" />
+    <div class="img-grid">
+      <figure><img src="assets/patch-antenna/designer-rectangular-pattern.png" alt="Rectangular radiation pattern" loading="lazy" /></figure>
+      <figure><img src="assets/patch-antenna/designer-polar-pattern.png" alt="Polar radiation pattern" loading="lazy" /></figure>
+    </div>
   </div>
 </section>
 
@@ -215,6 +231,7 @@
       finite ground plane. Substrate and ground are parametrically linked to the patch: total width 3L
       and total length 2L + Lt + Lf.
     </p>
+    <img src="assets/patch-antenna/cst-layout-rules.png" alt="Proportional layout rules of the antenna" class="project-img" style="max-width:720px;display:block;margin:0 auto 28px;" loading="lazy" />
     <div class="activity-grid">
       <div class="activity-card">
         <div class="activity-tag">MODELLING</div>
@@ -238,6 +255,23 @@
       </div>
     </div>
 
+    <h3 style="font-size:1rem;margin:32px 0 4px;">3D Modelling in CST</h3>
+    <div class="img-grid">
+      <figure><img src="assets/patch-antenna/cst-ground-substrate.png" alt="Finite ground plane and substrate in CST" loading="lazy" /></figure>
+      <figure><img src="assets/patch-antenna/cst-feed-transformer.png" alt="Feed line and quarter-wave transformer in CST" loading="lazy" /></figure>
+      <figure><img src="assets/patch-antenna/cst-patch.png" alt="Radiating patch in CST" loading="lazy" /></figure>
+      <figure><img src="assets/patch-antenna/cst-assembly.png" alt="Complete 3D assembly with excitation port" loading="lazy" /></figure>
+    </div>
+
+    <h3 style="font-size:1rem;margin:32px 0 4px;">Initial Mismatch</h3>
+    <img src="assets/patch-antenna/cst-initial-mismatch.png" alt="Initial S11 and impedance in CST before optimization" class="project-img" loading="lazy" />
+
+    <h3 style="font-size:1rem;margin:32px 0 4px;">Parameter Sweep on L</h3>
+    <img src="assets/patch-antenna/cst-sweep-optimized.png" alt="Optimized S11 and impedance from the parameter sweep" class="project-img" loading="lazy" />
+
+    <h3 style="font-size:1rem;margin:32px 0 4px;">Pre- vs Post-Sweep Comparison</h3>
+    <img src="assets/patch-antenna/cst-pre-post-comparison.png" alt="S11 and impedance before and after optimization" class="project-img" loading="lazy" />
+
     <h3 style="font-size:1rem;margin:32px 0 12px;">Bandwidth at −10 dB</h3>
     <table class="result-table">
       <thead>
@@ -254,6 +288,7 @@
       BW% = (fmax − fmin) / f₀ × 100, with fmin and fmax read from two curve markers placed at the
       −10 dB crossings of S11.
     </p>
+    <img src="assets/patch-antenna/cst-bandwidth-markers.png" alt="S11 with curve markers at the -10 dB cut-off frequencies" class="project-img" style="max-width:720px;display:block;margin:20px auto 0;" loading="lazy" />
   </div>
 </section>
 
