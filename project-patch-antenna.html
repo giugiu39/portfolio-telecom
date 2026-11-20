@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📶</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="5.8 GHz Microstrip Patch Antenna Design & Optimization — Arlon DiClad 870, Ansoft Designer and CST Studio Suite. University project by Gianluca Perrotta." />
+  <title>5.8 GHz Patch Antenna | Gianluca Perrotta</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Home">GP<span class="nav-logo-dot">.</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"    class="nav-link">Home</a></li>
+      <li><a href="#overview"     class="nav-link">Overview</a></li>
+      <li><a href="#designer"     class="nav-link">Ansoft Designer</a></li>
+      <li><a href="#cst"          class="nav-link">CST Studio</a></li>
+      <li><a href="#conclusions"  class="nav-link">Conclusions</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="project-hero" id="overview">
+  <div class="container">
+    <p class="project-meta">RF · ANTENNAS · MICROSTRIP · ELECTROMAGNETIC SIMULATION · 2025/2026</p>
+    <h1>5.8 GHz Microstrip Patch Antenna<br />Design &amp; Optimization</h1>
+    <p class="project-desc">
+      End-to-end design, simulation and optimization of a rectangular microstrip patch antenna
+      at 5.8 GHz on an Arlon DiClad 870 substrate, matched to 50 Ω — from analytical sizing and
+      2D planar modelling in Ansoft Designer to full-wave 3D validation and tuning in CST Studio Suite.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:28px;">
+      <a href="index.html#projects" class="btn btn-ghost">← Back to projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">University Context</h2>
+    <p>
+      This project was developed for the course <strong>Antennas and Propagation</strong>
+      (Prof. Sandra Costanzo, A.A. 2025/2026) at the <strong>Università della Calabria (UNICAL)</strong>,
+      Department of Computer Engineering, Modeling, Electronics and Systems (DIMES), together with
+      Francesco Desando.
+    </p>
+    <p style="margin-top:12px;">
+      The work follows the real design flow of a planar antenna: closed-form sizing, 2D simulation
+      under an infinite ground plane assumption, then a full-wave 3D model with a finite ground
+      plane, which exposes non-idealities that the planar model cannot capture and must be
+      compensated by optimization.
+    </p>
+  </div>
+</section>
+
+<!-- KEY RESULTS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Key Results</h2>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">ANSOFT DESIGNER</div>
+        <h4>S11 ≤ −24 dB</h4>
+        <p>Reflection coefficient minimum at 5.8 GHz after quarter-wave matching, under the infinite ground plane model.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">CST STUDIO SUITE</div>
+        <h4>S11 ≤ −20 dB</h4>
+        <p>Match restored in 3D full-wave simulation with a finite ground plane after structural fine-tuning (L = 16.005 mm).</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">BANDWIDTH</div>
+        <h4>1.50 % at −10 dB</h4>
+        <p>From 5.758873 GHz to 5.845830 GHz around f₀ = 5.8 GHz, typical narrow-band behaviour of single-layer patches.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">RADIATION</div>
+        <h4>Broadside Main Lobe</h4>
+        <p>Single lobe along +z (fundamental TM10 mode) with no significant back radiation thanks to the ground plane.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Objectives &amp; Constraints</h2>
+    <p style="color:var(--text-muted);margin-bottom:20px;">
+      The goal is maximum power transfer from the source to the radiating element, i.e. minimising the
+      reflection coefficient Γ = (Zp − Z₀)/(Zp + Z₀) at the operating frequency, and then verifying the
+      far-field radiation characteristics.
+    </p>
+    <table class="result-table">
+      <thead>
+        <tr><th>Constraint</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Operating frequency f₀</td><td>5.8 GHz</td></tr>
+        <tr><td>Source impedance Z₀</td><td>50 Ω</td></tr>
+        <tr><td>Substrate</td><td>Arlon DiClad 870 (εr = 2.33, μr = 1, h = 0.762 mm)</td></tr>
+        <tr><td>Resonance condition</td><td>Im{Zin(f₀)} = 0</td></tr>
+        <tr><td>Matching condition</td><td>Re{Zin(f₀)} = 50 Ω</td></tr>
+        <tr><td>Acceptance criterion</td><td>VSWR ≤ 2, i.e. |S11| ≤ −10 dB</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TECHNOLOGIES -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Technologies Used</h2>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin-bottom:10px;">SOFTWARE</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">Ansoft Designer</span>
+      <span class="badge highlight">CST Studio Suite</span>
+      <span class="badge highlight">Parameter Sweep</span>
+      <span class="badge highlight">Curve Markers</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">ANTENNA &amp; RF</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">Rectangular microstrip patch</span>
+      <span class="badge highlight">50 Ω microstrip feed line</span>
+      <span class="badge highlight">Quarter-wave transformer</span>
+      <span class="badge highlight">Impedance matching</span>
+      <span class="badge highlight">S11 / VSWR</span>
+      <span class="badge highlight">Far-field patterns</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">MATERIALS</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">Arlon DiClad 870</span>
+      <span class="badge highlight">Copper (t = 0.035 mm)</span>
+    </div>
+  </div>
+</section>
+
+<!-- PART I -->
+<section class="project-section" id="designer">
+  <div class="container">
+    <h2 class="section-title">Part I — Ansoft Designer</h2>
+    <p style="color:var(--text-muted);margin-bottom:20px;">
+      Planar (2D) modelling with an infinite ground plane. Initial dimensions come from the built-in
+      Estimate tool (f₀, impedance, VSWR = 2), then the design is refined step by step.
+    </p>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">STEP 1</div>
+        <h4>Patch Only — Resonance</h4>
+        <p>Simulated the bare patch (ground / Arlon substrate / copper patch) and iterated on L until Im{Zp(f₀)} = 0.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">STEP 2</div>
+        <h4>50 Ω Feed Line</h4>
+        <p>Synthesised the feed width Wf and the guided wavelength λg, and set the line length to Lf = λg/2 so that Zin = Zp at the port.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">STEP 3</div>
+        <h4>Quarter-Wave Transformer</h4>
+        <p>Read the patch edge impedance from the simulation and let the Estimate tool return Zt and the (Wt, Lt) section that transforms it into 50 Ω.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">STEP 4</div>
+        <h4>Simulation Settings</h4>
+        <p>Frequency sweep from 4.5 to 7.0 GHz with 51 points and mesh frequency at 7.0 GHz for adequate spatial discretisation.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;margin:32px 0 12px;">Final Dimensions</h3>
+    <table class="result-table">
+      <thead>
+        <tr><th>Parameter</th><th>Symbol</th><th>Value (mm)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Patch side length</td><td>L</td><td>16.2867</td></tr>
+        <tr><td>Quarter-wave transformer length</td><td>Lt</td><td>9.639</td></tr>
+        <tr><td>Feed line length</td><td>Lf</td><td>18.43</td></tr>
+        <tr><td>Quarter-wave transformer width</td><td>Wt</td><td>0.3577</td></tr>
+        <tr><td>Feed line width</td><td>Wf</td><td>2.238</td></tr>
+        <tr><td>Copper thickness</td><td>t</td><td>0.035</td></tr>
+        <tr><td>Substrate thickness</td><td>h</td><td>0.762</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:16px;color:var(--text-muted);font-size:0.88rem;">
+      <strong style="color:var(--text);">Results:</strong> at 5.80 GHz the input impedance is
+      Re{Z} = 55.14 Ω and Im{Z} = 6.04 Ω, close to resonance and matching. |S11| reaches about −24 dB,
+      and the radiation pattern (3D, rectangular and polar) shows a single broadside lobe along +z.
+    </p>
+  </div>
+</section>
+
+<!-- PART II -->
+<section class="project-section" id="cst">
+  <div class="container">
+    <h2 class="section-title">Part II — CST Studio Suite</h2>
+    <p style="color:var(--text-muted);margin-bottom:20px;">
+      The structure was rebuilt as a volumetric model with real thicknesses, conductivities and a
+      finite ground plane. Substrate and ground are parametrically linked to the patch: total width 3L
+      and total length 2L + Lt + Lf.
+    </p>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">MODELLING</div>
+        <h4>3D Parametric Workflow</h4>
+        <p>Global variables imported from Designer, then finite ground plane, dielectric substrate, feed line, quarter-wave transformer, patch and excitation port.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">DIAGNOSIS</div>
+        <h4>Initial Mismatch</h4>
+        <p>With the Designer dimensions, the finite ground plane introduces edge diffraction and fringe fields that completely detune the match at 5.8 GHz.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">OPTIMIZATION</div>
+        <h4>Parameter Sweep on L</h4>
+        <p>Several scan intervals were explored iteratively to map the sensitivity, converging on L = 16.005 mm with Re{Zin} ≈ 50 Ω, Im{Zin} ≈ 0 Ω and Γ ≤ −20 dB.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">VALIDATION</div>
+        <h4>Pre- vs Post-Sweep</h4>
+        <p>Superimposed curves show the S11 notch recentred at 5.8 GHz and the reactive component cancelled, with a −10 dB bandwidth of 1.50 %.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;margin:32px 0 12px;">Bandwidth at −10 dB</h3>
+    <table class="result-table">
+      <thead>
+        <tr><th>Parameter</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Lower frequency fmin</td><td>5.758873 GHz</td></tr>
+        <tr><td>Upper frequency fmax</td><td>5.845830 GHz</td></tr>
+        <tr><td>Resonant frequency f₀</td><td>5.800000 GHz</td></tr>
+        <tr class="highlight-row"><td>Percentage bandwidth BW%</td><td>1.50 %</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:16px;color:var(--text-muted);font-size:0.88rem;">
+      BW% = (fmax − fmin) / f₀ × 100, with fmin and fmax read from two curve markers placed at the
+      −10 dB crossings of S11.
+    </p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Skills Developed</h2>
+    <div class="tech-badges">
+      <span class="badge highlight">Microstrip antenna design</span>
+      <span class="badge highlight">Analytical sizing</span>
+      <span class="badge highlight">Impedance matching</span>
+      <span class="badge highlight">Quarter-wave transformers</span>
+      <span class="badge highlight">Ansoft Designer</span>
+      <span class="badge highlight">CST Studio Suite</span>
+      <span class="badge highlight">Full-wave 3D simulation</span>
+      <span class="badge highlight">Parametric optimization</span>
+      <span class="badge highlight">S11 / VSWR / bandwidth analysis</span>
+      <span class="badge highlight">Radiation pattern analysis</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSIONS -->
+<section class="project-section" id="conclusions">
+  <div class="container">
+    <h2 class="section-title">Conclusions</h2>
+    <p>
+      The project shows that 2D analytical and planar synthesis is an excellent starting point
+      (S11 ≤ −24 dB under an infinite ground plane), but that a full-wave 3D optimization is mandatory
+      before fabrication: the finite ground plane shifts the resonance and breaks the match.
+    </p>
+    <p style="margin-top:14px;">
+      Successive parameter sweeps on the patch length compensated for the edge effects and
+      yielded the executive dimensions for a prototype, with S11 ≤ −20 dB and a 1.50 % fractional
+      bandwidth at 5.8 GHz — consistent with the intrinsic narrow-band nature of single-layer patch antennas.
+    </p>
+    <div style="margin-top:24px;">
+      <a href="index.html#projects" class="btn btn-ghost">← Back to projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Gianluca Perrotta — Telecommunications Engineering Student</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
