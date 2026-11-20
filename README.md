@@ -20,7 +20,7 @@
 
 ## 👋 About
 
-Personal portfolio of a **Telecommunications Engineering** student at **Università della Calabria (UNICAL)**, with a background in Computer Engineering.
+Personal portfolio of a **Telecommunications Engineering** student at **Università della Calabria (UNICAL)**, with a background in Computer Engineering (B.Sc., 107/110).
 
 It is a static site built with vanilla HTML, CSS and JavaScript — no framework, no build step — deployed on GitHub Pages. It showcases university projects across IoT, edge/cloud computing, networking, RF engineering and AI, plus a published research paper.
 
@@ -30,10 +30,10 @@ It is a static site built with vanilla HTML, CSS and JavaScript — no framework
 
 | Project | Area | Year | Status |
 |---|---|---|---|
-| [**Group Emotion Recognition — Smart Park**](project-ger.html) | IoT · Edge/Cloud · VLM | 2026/2027 | University project |
-| [**Networking Performance Analysis of an Edge-Based People Tracking IoT System**](project-people-tracking.html) | Edge AI · BLE · MQTT/TLS · CoAP | 2026/2027 | University project |
-| [**5.8 GHz Microstrip Patch Antenna Design & Optimization**](project-patch-antenna.html) | RF · Ansoft Designer · CST Studio Suite | 2025/2026 | University project |
-| [**IoT Environmental Monitor with MQTT & Node-RED**](project-iot-monitor.html) | ESP32 · MQTT · 4G/5G NSA | 2024/2025 | Bachelor's thesis |
+| [**Group Emotion Recognition — Smart Park**](project-ger.html) | IoT · Edge/Cloud · VLM | Apr – Jul 2026 | University project |
+| [**Networking Performance Analysis of an Edge-Based People Tracking IoT System**](project-people-tracking.html) | Edge AI · BLE · MQTT/TLS · CoAP | Jul – Sep 2026 | University project |
+| [**5.8 GHz Microstrip Patch Antenna Design & Optimization**](project-patch-antenna.html) | RF · Ansoft Designer · CST Studio Suite | May – Jun 2026 | University project |
+| [**IoT Environmental Monitor with MQTT & Node-RED**](project-iot-monitor.html) | ESP32 · MQTT · 4G/5G NSA | Sep – Dec 2025 | Bachelor's thesis |
 
 ---
 
@@ -57,12 +57,13 @@ It is a static site built with vanilla HTML, CSS and JavaScript — no framework
 
 | Area | Technologies |
 |---|---|
-| **Languages** | Python · C/C++ · JavaScript · MATLAB |
-| **Networking** | TCP/IP · MQTT/TLS · CoAP/UDP · BLE · 4G/5G NSA · Wireshark/TShark · chrony/SNTP |
+| **Languages** | Python · C/C++ · JavaScript · MATLAB · SQL |
+| **Networking** | TCP/IP · MQTT/TLS · CoAP/UDP · BLE · Wi-Fi · 4G/5G NSA · Wireshark/TShark · chrony/SNTP |
 | **IoT / Embedded** | Raspberry Pi 5 · ESP32 · Arduino Nano ESP32 · OpenCV · AES-GCM |
 | **RF & Antennas** | Microstrip patch design · impedance matching · Ansoft Designer · CST Studio Suite |
 | **Cloud & Backend** | AWS EC2 · S3 · Cognito · Lambda · FastAPI · MySQL · Tailscale |
-| **AI / ML** | YOLO · ByteTrack · Vision-Language Models · QLoRA/PEFT · Hugging Face · Ollama |
+| **AI / ML** | YOLO · ByteTrack · Vision-Language Models · QLoRA/PEFT · Hugging Face · LLMs / Ollama · LangChain |
+| **Spoken languages** | Italian (native) · English (B2, Cambridge English Certificate) |
 | **Tools** | Git · Linux · Docker · Node-RED · Flutter · EdgeCloudSim |
 
 ---
