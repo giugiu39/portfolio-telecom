@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📍</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Networking Performance Analysis of an Edge-Based People Tracking IoT System — BLE + MQTT/TLS vs CoAP/UDP on Raspberry Pi and ESP32. University project by Gianluca Perrotta." />
+  <title>Edge People Tracking Networking | Gianluca Perrotta</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Home">GP<span class="nav-logo-dot">.</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"    class="nav-link">Home</a></li>
+      <li><a href="#overview"     class="nav-link">Overview</a></li>
+      <li><a href="#architecture" class="nav-link">Architecture</a></li>
+      <li><a href="#evaluation"   class="nav-link">Evaluation</a></li>
+      <li><a href="#conclusions"  class="nav-link">Conclusions</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="project-hero" id="overview">
+  <div class="container">
+    <p class="project-meta">EDGE AI · IoT NETWORKING · BLE · MQTT · COAP · PERFORMANCE EVALUATION</p>
+    <h1>Networking Performance Analysis of an<br />Edge-Based People Tracking IoT System</h1>
+    <p class="project-desc">
+      An edge-based IoT system that detects and tracks people in real time on a Raspberry Pi
+      (YOLO + ByteTrack) and sends lightweight zone-transition events through two heterogeneous
+      architectures — BLE + MQTT/TLS and CoAP/UDP — compared in terms of latency, reliability,
+      security overhead and scalability.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:28px;">
+      <a href="index.html#projects" class="btn btn-ghost">← Back to projects</a>
+      <a href="https://github.com/giugiu39/IoT-people-tracking-networking" target="_blank" rel="noopener" class="btn btn-ghost">View on GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">University Context</h2>
+    <p>
+      This work was developed as an academic project for the <strong>"Networking Aspects of IoT"</strong>
+      course of the M.Sc. in Telecommunications Engineering at
+      <strong>Università della Calabria (UNICAL)</strong>, as part of a four-person team.
+    </p>
+    <p style="margin-top:12px;">
+      The system follows an <strong>edge-computing approach</strong>: video analysis and people tracking
+      run locally on the Raspberry Pi, and only the resulting semantic movement events
+      (e.g. <code style="color:var(--accent)">Person 1053: Zone_A → Zone_D</code>) are transmitted —
+      no video stream ever crosses the network. The project then asks a networking question:
+      how do different communication architectures behave when carrying these compact events?
+    </p>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Objectives</h2>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">EDGE AI</div>
+        <h4>Real-Time Tracking at the Edge</h4>
+        <p>Run YOLO detection and ByteTrack tracking on a Raspberry Pi 5, classify each person into predefined zones and generate zone-transition events.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">ARCHITECTURES</div>
+        <h4>Two Communication Paths</h4>
+        <p>Compare a gateway-based cloud path (BLE → ESP32 → Wi-Fi → MQTT/TLS → HiveMQ Cloud) with a direct local path (CoAP over UDP).</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">METRICS</div>
+        <h4>Latency, PDR &amp; RTT</h4>
+        <p>Measure application-level end-to-end latency, Packet Delivery Ratio, MQTT QoS 0/1/2 behaviour and CoAP Round-Trip Time.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">SECURITY &amp; SCALABILITY</div>
+        <h4>AES-GCM Overhead &amp; Load</h4>
+        <p>Quantify the cost of AES-GCM authenticated encryption and stress both paths with increasing traffic, from 5 to 50 Events Per Second.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGIES -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Technologies Used</h2>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin-bottom:10px;">HARDWARE</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">Raspberry Pi 5</span>
+      <span class="badge highlight">ESP32</span>
+      <span class="badge highlight">Arduino Nano ESP32</span>
+      <span class="badge highlight">RTSP camera stream</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">EDGE AI</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">YOLO (yolo11s)</span>
+      <span class="badge highlight">ByteTrack</span>
+      <span class="badge highlight">OpenCV</span>
+      <span class="badge highlight">Python</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">COMMUNICATION &amp; SECURITY</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">BLE (bleak)</span>
+      <span class="badge highlight">Wi-Fi</span>
+      <span class="badge highlight">MQTT / TLS</span>
+      <span class="badge highlight">HiveMQ Cloud</span>
+      <span class="badge highlight">CoAP (aiocoap)</span>
+      <span class="badge highlight">UDP</span>
+      <span class="badge highlight">AES-GCM</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">FIRMWARE</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">Arduino IDE / C++</span>
+      <span class="badge highlight">BLE-to-Wi-Fi gateway</span>
+      <span class="badge highlight">MQTT QoS gateway</span>
+    </div>
+
+    <h3 style="font-size:0.85rem;font-family:var(--font-mono);color:var(--text-muted);letter-spacing:0.1em;margin:24px 0 10px;">MEASUREMENT &amp; ANALYSIS</h3>
+    <div class="tech-badges">
+      <span class="badge highlight">Wireshark / TShark</span>
+      <span class="badge highlight">chrony</span>
+      <span class="badge highlight">SNTP</span>
+      <span class="badge highlight">Python stress tests</span>
+      <span class="badge highlight">JSONL logging</span>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM ARCHITECTURE -->
+<section class="project-section" id="architecture">
+  <div class="container">
+    <h2 class="section-title">System Architecture</h2>
+    <p style="color:var(--text-muted);margin-bottom:4px;">
+      The testbed has three nodes: the <strong>Raspberry Pi</strong> (edge tracker and event producer),
+      an <strong>ESP32 / Arduino Nano ESP32</strong> (BLE-to-IP gateway) and a <strong>MacBook Pro</strong>
+      (aggregation and measurement node running the CoAP server and the MQTT subscriber).
+      The same events are routed through two different paths.
+    </p>
+
+    <h3 style="font-size:1rem;margin:24px 0 12px;">Path A — BLE + MQTT/TLS (edge-to-cloud)</h3>
+    <div class="arch-flow">
+      <div class="arch-node edge-node">
+        <strong>Raspberry Pi</strong><br />
+        <span style="font-size:0.75rem;">YOLO · ByteTrack<br />Zone events</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node edge-node">
+        <strong>ESP32 Gateway</strong><br />
+        <span style="font-size:0.75rem;">BLE in<br />Wi-Fi out</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node cloud-node">
+        <strong>HiveMQ Cloud</strong><br />
+        <span style="font-size:0.75rem;">MQTT over TLS<br />QoS 0 / 1 / 2</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node app-node">
+        <strong>Subscriber</strong><br />
+        <span style="font-size:0.75rem;">MacBook<br />Latency logging</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;margin:32px 0 12px;">Path B — CoAP/UDP (edge-to-LAN)</h3>
+    <div class="arch-flow">
+      <div class="arch-node edge-node">
+        <strong>Raspberry Pi</strong><br />
+        <span style="font-size:0.75rem;">YOLO · ByteTrack<br />Zone events</span>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node app-node">
+        <strong>CoAP Server</strong><br />
+        <span style="font-size:0.75rem;">MacBook · UDP<br />Latency + RTT</span>
+      </div>
+    </div>
+
+    <p style="color:var(--text-muted);margin-top:24px;">
+      On Path B the server decrypts the payload (when AES-GCM is enabled), extracts the sender timestamp,
+      computes the end-to-end latency, stores the event and returns a CoAP response, which lets the
+      Raspberry Pi measure the request/response RTT separately.
+    </p>
+  </div>
+</section>
+
+<!-- EDGE AI PIPELINE -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Edge AI Pipeline</h2>
+    <p style="color:var(--text-muted);margin-bottom:20px;">
+      Detection and tracking happen entirely on the Raspberry Pi, so the network only carries a few
+      bytes per movement instead of a video stream.
+    </p>
+    <div class="arch-flow">
+      <div class="arch-node edge-node"><strong>RTSP stream</strong><br /><span style="font-size:0.75rem;">Frame acquisition</span></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node edge-node"><strong>YOLO</strong><br /><span style="font-size:0.75rem;">Person detection</span></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node edge-node"><strong>ByteTrack</strong><br /><span style="font-size:0.75rem;">Persistent IDs</span></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node cloud-node"><strong>Zone classification</strong><br /><span style="font-size:0.75rem;">Predefined zones</span></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node app-node"><strong>Event</strong><br /><span style="font-size:0.75rem;">BLE / CoAP</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEVELOPMENT / IMPLEMENTATION -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Main Implementation</h2>
+    <div class="activity-grid">
+      <div class="activity-card">
+        <div class="activity-tag">EDGE</div>
+        <h4>Tracker &amp; Zone Events</h4>
+        <p>Python tracker on the Raspberry Pi with YOLO, ByteTrack, a zone-picker utility and zone-transition event generation, plus a variant without AES-GCM.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">FIRMWARE</div>
+        <h4>BLE-to-Wi-Fi Gateways</h4>
+        <p>ESP32 and Arduino Nano ESP32 firmware receiving events over BLE and republishing them via MQTT/TLS, with encrypted, unencrypted and QoS-experiment versions.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">PATH A</div>
+        <h4>MQTT/TLS &amp; QoS Experiments</h4>
+        <p>Integration with HiveMQ Cloud and dedicated subscribers that measure end-to-end latency for QoS 0, 1 and 2.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">PATH B</div>
+        <h4>CoAP Request/Response</h4>
+        <p>aiocoap-based server handling decryption, timestamp extraction, latency computation, persistence and responses used for RTT measurement.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">SECURITY</div>
+        <h4>AES-GCM Authenticated Encryption</h4>
+        <p>Each payload carries a 12-byte nonce plus ciphertext and authentication tag, giving confidentiality, integrity and authentication; NO_AES variants isolate its overhead.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">BENCHMARK</div>
+        <h4>Stress Testing &amp; Analysis</h4>
+        <p>Python stress tests raising the load from 5 to 50 EPS and a latency-analysis script computing min, mean, p50, p95, p99 and PDR from JSONL logs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVALUATION -->
+<section class="project-section" id="evaluation">
+  <div class="container">
+    <h2 class="section-title">Experimental Evaluation</h2>
+    <p style="color:var(--text-muted);margin-bottom:20px;">
+      Both paths were evaluated under controlled conditions with the same events, so differences
+      can be attributed to the communication stack.
+    </p>
+
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>How it is measured</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>End-to-end latency</td>
+          <td>Receive timestamp − send timestamp, assigned just before serialization (application level)</td>
+        </tr>
+        <tr>
+          <td>Packet Delivery Ratio</td>
+          <td>Received messages ÷ sent messages × 100</td>
+        </tr>
+        <tr>
+          <td>MQTT QoS 0 / 1 / 2</td>
+          <td>Latency of the full BLE + MQTT path per delivery semantics</td>
+        </tr>
+        <tr>
+          <td>CoAP RTT</td>
+          <td>Request → response time measured on the Raspberry Pi</td>
+        </tr>
+        <tr>
+          <td>Scalability</td>
+          <td>5 → 50 EPS; min / avg / p50 / p95 / p99 latency and PDR at each step</td>
+        </tr>
+        <tr>
+          <td>AES-GCM overhead</td>
+          <td>Encrypted vs. unencrypted variants of firmware, tracker and servers</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:16px;color:var(--text-muted);font-size:0.88rem;">
+      <strong style="color:var(--text);">Clock synchronization:</strong> one-way latency needs aligned clocks,
+      so the Raspberry Pi runs <code style="color:var(--accent)">chrony</code>, the MacBook is synchronized via
+      <code style="color:var(--accent)">sntp</code> before every session, and no fixed latency correction is applied.
+      Packets were also inspected with Wireshark/TShark.
+    </p>
+
+    <div class="activity-grid" style="margin-top:28px;">
+      <div class="activity-card">
+        <div class="activity-tag">PATH B</div>
+        <h4>CoAP / LAN</h4>
+        <p>Avoids the BLE gateway and the cloud/WAN segment: in the tested local configuration it showed low latency and high delivery reliability.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">PATH A</div>
+        <h4>BLE + MQTT / Cloud</h4>
+        <p>Latency is the combined effect of BLE, gateway processing, Wi-Fi, TLS, MQTT, broker routing and WAN conditions.</p>
+      </div>
+      <div class="activity-card">
+        <div class="activity-tag">LOAD</div>
+        <h4>Saturation</h4>
+        <p>Higher event rates cause queueing, wireless contention and buffer pressure; the stress tests locate degradation and losses experimentally.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="project-section">
+  <div class="container">
+    <h2 class="section-title">Skills Developed</h2>
+    <div class="tech-badges">
+      <span class="badge highlight">Edge AI / computer vision</span>
+      <span class="badge highlight">YOLO + ByteTrack</span>
+      <span class="badge highlight">Embedded C++ (ESP32)</span>
+      <span class="badge highlight">BLE gateways</span>
+      <span class="badge highlight">MQTT / TLS &amp; QoS</span>
+      <span class="badge highlight">CoAP / UDP</span>
+      <span class="badge highlight">AES-GCM</span>
+      <span class="badge highlight">Network performance evaluation</span>
+      <span class="badge highlight">Latency / PDR / percentile analysis</span>
+      <span class="badge highlight">Clock synchronization</span>
+      <span class="badge highlight">Wireshark / TShark</span>
+      <span class="badge highlight">HiveMQ Cloud</span>
+      <span class="badge highlight">Python benchmarking</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSIONS -->
+<section class="project-section" id="conclusions">
+  <div class="container">
+    <h2 class="section-title">Conclusions</h2>
+    <p>
+      The project shows that moving intelligence to the edge turns people tracking into a
+      very light networking problem: only compact events are sent, so the interesting questions
+      become protocol behaviour, security cost and scalability rather than bandwidth.
+    </p>
+    <p style="margin-top:14px;">
+      The direct CoAP/UDP path is simpler and faster on a local network, while BLE + MQTT/TLS adds
+      stages (gateway, Wi-Fi, TLS, cloud broker, WAN) in exchange for remote reach, broker-based
+      distribution and configurable delivery guarantees via QoS. Measured values depend on the
+      specific hardware, firmware, wireless environment, broker region and workload, so they describe
+      this testbed rather than universal protocol benchmarks.
+    </p>
+    <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:16px;">
+      <a href="index.html#projects" class="btn btn-ghost">← Back to projects</a>
+      <a href="https://github.com/giugiu39/IoT-people-tracking-networking" target="_blank" rel="noopener" class="btn btn-ghost">Source code on GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Gianluca Perrotta — Telecommunications Engineering Student</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
