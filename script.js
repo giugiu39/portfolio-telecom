@@ -14,6 +14,12 @@ function updateNav() {
   navLinkEls.forEach(a =>
     a.classList.toggle('active', a.getAttribute('href') === `#${current}`)
   );
+
+  // Keep the URL hash in sync with the visible section (no history entries)
+  const hash = current && current !== 'hero' ? `#${current}` : '';
+  if (hash !== location.hash) {
+    history.replaceState(null, '', hash || location.pathname + location.search);
+  }
 }
 
 window.addEventListener('scroll', updateNav, { passive: true });
