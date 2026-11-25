@@ -205,8 +205,8 @@ section { padding: 112px 0; position: relative; border-top: 1px solid var(--bord
   /* Full-bleed across the whole page width, raised behind the name */
   left: 50%; right: auto; bottom: auto;
   transform: translateX(-50%);
-  top: -130px;
-  width: 200vw;
+  top: -127px;
+  width: 170vw;
   height: clamp(220px, 34vw, 400px);
   z-index: -1;
 }
