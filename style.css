@@ -202,10 +202,10 @@ section { padding: 112px 0; position: relative; border-top: 1px solid var(--bord
 
 .hero-curve {
   position: absolute;
-  left: 0; right: 0; bottom: 14%;
+  left: 0; right: 0; bottom: 0;
   width: 100%;
-  height: auto;
-  max-height: 46%;
+  height: 24vh;
+  min-height: 140px;
 }
 
 .hero-curve .curve-axis { stroke: var(--border); stroke-width: 1; }
@@ -231,6 +231,9 @@ section { padding: 112px 0; position: relative; border-top: 1px solid var(--bord
   padding-top: 68px;
   max-width: 880px;
 }
+
+/* Raise the text block; buttons stay where they are */
+.hero-eyebrow, .hero-name, .hero-role, .hero-tagline { position: relative; top: -40px; }
 
 .hero-eyebrow {
   display: flex;
@@ -1149,7 +1152,9 @@ footer {
   .nav-links.open { display: flex; }
   .nav-link { font-size: 0.95rem; }
   .hero-scroll-hint { display: none; }
-  .hero-curve { bottom: 6%; }
+  #hero { padding-bottom: 18vh; }
+  .hero-curve { height: 16vh; min-height: 100px; }
+  .hero-eyebrow, .hero-name, .hero-role, .hero-tagline { top: -20px; }
 }
 
 @media (min-width: 641px) { .nav-toggle { display: none; } }
