@@ -202,10 +202,11 @@ section { padding: 112px 0; position: relative; border-top: 1px solid var(--bord
 
 .hero-curve {
   position: absolute;
-  left: 0; right: 0; bottom: 0;
-  width: 100%;
-  height: 24vh;
-  min-height: 140px;
+  /* Sits to the right of the name, same height as the two name lines */
+  right: 24px; left: auto; bottom: auto;
+  top: 6px;
+  width: min(46%, 440px);
+  height: clamp(6.3rem, 15.7vw, 12.2rem);
 }
 
 .hero-curve .curve-axis { stroke: var(--border); stroke-width: 1; }
@@ -1152,8 +1153,7 @@ footer {
   .nav-links.open { display: flex; }
   .nav-link { font-size: 0.95rem; }
   .hero-scroll-hint { display: none; }
-  #hero { padding-bottom: 18vh; }
-  .hero-curve { height: 16vh; min-height: 100px; }
+  .hero-curve { display: none; }
   .hero-eyebrow, .hero-name, .hero-role, .hero-tagline { top: -20px; }
 }
 
